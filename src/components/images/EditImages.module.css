@@ -1,0 +1,26 @@
+.category-btns-container {
+  padding: 5rem 2rem;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  column-gap: 4rem;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+}
+
+.category-btns-container button {
+  color: white;
+  font-size: 1.1rem;
+  width: 8rem;
+  height: 3rem;
+  background-color: #18191A;
+  border: 2px solid #a5a5a5;
+  border-radius: 15px;
+  transition: border 0.15s ease-out;
+  cursor: pointer;
+}
+
+.category-btns-container button:hover {
+  border: 2px solid #489ac9;
+}
