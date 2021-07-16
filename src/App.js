@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import EditCategoryImagesPage from "./pages/EditCategoryImagesPage";
 
 import Navbar from "./components/navbar/Navbar";
-import EditImagesPage from "./pages/EditImagesPage";
+import EditGalleryPage from "./pages/EditGalleryPage";
 
 function App() {
   return (
@@ -11,7 +12,10 @@ function App() {
         <Switch>
           <Route path="/" exact></Route>
           <Route path="/bilder" exact>
-            <EditImagesPage />
+            <EditGalleryPage />
+          </Route>
+          <Route path="/bilder/:category" exact>
+            <EditCategoryImagesPage />
           </Route>
           <Route path="/blogg" exact>
             <h1>Blogg</h1>

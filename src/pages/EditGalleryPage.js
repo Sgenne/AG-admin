@@ -1,4 +1,4 @@
-import EditImages from "../components/images/EditImages";
+import EditGallery from "../components/images/EditGallery";
 
 const DUMMY_CATEGORIES = [
   {
@@ -19,7 +19,7 @@ const DUMMY_CATEGORIES = [
 ];
 
 const EditImagesPage = () => {
-  return <EditImages categories={DUMMY_CATEGORIES} />;
+  return <EditGallery categories={DUMMY_CATEGORIES} />;
 };
 
 export default EditImagesPage;

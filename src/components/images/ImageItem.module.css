@@ -1,0 +1,36 @@
+.image-item {
+  border: 2px solid #ff98f8;
+  box-shadow: 1px 1px 12px rgba(255, 152, 248, 0.5);
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  padding: 1rem 0;
+  margin: 1rem 1rem;
+}
+
+.info-container {
+  /* border: 2px solid green; */
+  text-align: center;
+}
+
+
+.info-container h2 {
+  margin: 0;
+}
+
+.info-container img {
+  height: 50vh;
+  width: auto;
+}
+
+.control-section {
+  padding-right: 2rem;
+  display: grid;
+  grid-template-columns: auto;
+  justify-items: end;
+  align-items:flex-end;
+}
+
+.control-section button {
+  margin-bottom: 2rem;
+}

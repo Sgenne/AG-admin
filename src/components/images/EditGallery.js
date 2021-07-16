@@ -1,21 +1,26 @@
 import { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom"
 
-import styles from "./EditImages.module.css";
+import styles from "./EditGallery.module.css";
 
 const EditImages = (props) => {
   const [categoryButtons, setCategoryButtons] = useState([]);
+  const history = useHistory(); 
 
   useEffect(() => {
     const buttons = props.categories.map((category) => {
-      console.log(category.categoryName);
+
+      const clickHandler = () => {
+        history.push(`/bilder/${category.categoryName}`)
+      }
 
       return (
-        <button key={category.categoryName}>{category.categoryName}</button>
+        <button key={category.categoryName} onClick={clickHandler} >{category.categoryName}</button>
       );
     });
 
     setCategoryButtons(buttons);
-  }, [props.categories]);
+  }, [props.categories, history]);
 
   return (
     <>

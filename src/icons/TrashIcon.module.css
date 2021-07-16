@@ -1,0 +1,11 @@
+.icon {
+  transition: fill 0.20s ease-out;
+}
+
+.non-hover {
+  fill: #303846;
+}
+
+.hover {
+  fill: #C95D61
+}

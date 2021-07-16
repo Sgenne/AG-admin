@@ -1,0 +1,13 @@
+.btn {
+  width: 5rem;
+  aspect-ratio: 16/9;
+  background-color: #18191A;
+  border: 2px solid #303846;
+  transition: border 0.2s ease-out;
+  border-radius: 15px;
+}
+
+.btn:hover {
+  border: 2px solid #C95D61;
+  cursor: pointer;
+}
