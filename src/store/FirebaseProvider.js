@@ -44,60 +44,75 @@ const FirebaseProvider = (props) => {
   };
 
   const getCategories = async () => {
-    const result = await dbRef.child(GALLERY_CATEGORIES_PATH).get();
-    const categories = result.val();
-
-    return Object.values(categories);
+    try {
+      const result = await dbRef.child(GALLERY_CATEGORIES_PATH).get();
+      const categories = result.val();
+      return { categories: Object.values(categories) };
+    } catch (err) {
+      return { error: err };
+    }
   };
 
   const addImage = async (category, image, title) => {
-    const previewImage = await imageCompression(image, IMAGE_COMPRESSION_OPTIONS);
+    try {
+      const previewImage = await imageCompression(
+        image,
+        IMAGE_COMPRESSION_OPTIONS
+      );
 
+      const imageId = dbRef
+        .child(`${GALLERY_IMAGES_PATH}/${category.toLowerCase()}`)
+        .push().key;
 
-    const imageId = dbRef
-      .child(`${GALLERY_IMAGES_PATH}/${category.toLowerCase()}`)
-      .push().key;
+      const firebaseFilePath = storageRef.child(
+        `images/${category.toLowerCase()}/${imageId}.jpg`
+      );
+      await firebaseFilePath.put(image);
+      const downloadUrl = await firebaseFilePath.getDownloadURL();
 
-    const firebaseFilePath = storageRef.child(
-      `images/${category.toLowerCase()}/${imageId}.jpg`
-    );
-    await firebaseFilePath.put(image);
-    const downloadUrl = await firebaseFilePath.getDownloadURL();
+      const firebaseThumbnailPath = storageRef.child(
+        `images/${category.toLowerCase()}/${imageId}preview.jpg`
+      );
+      await firebaseThumbnailPath.put(previewImage);
+      const previewUrl = await firebaseThumbnailPath.getDownloadURL();
 
-    const firebaseThumbnailPath = storageRef.child(
-      `images/${category.toLowerCase()}/${imageId}preview.jpg`
-    );
-    await firebaseThumbnailPath.put(previewImage);
-    const previewUrl = await firebaseThumbnailPath.getDownloadURL();
-
-    console.log("previewUrl: ", previewUrl);
-
-    await dbRef
-      .child(`${GALLERY_IMAGES_PATH}/${category.toLowerCase()}/${imageId}`)
-      .set({
-        title,
-        id: imageId,
-        "download-url": downloadUrl,
-        "preview-url": previewUrl,
-      });
+      await dbRef
+        .child(`${GALLERY_IMAGES_PATH}/${category.toLowerCase()}/${imageId}`)
+        .set({
+          title,
+          id: imageId,
+          "download-url": downloadUrl,
+          "preview-url": previewUrl,
+        });
+    } catch (err) {
+      return {
+        error: err,
+      };
+    }
   };
 
   const deleteImage = async (category, imageId) => {
-    const entryRef = dbRef.child(
-      `${GALLERY_IMAGES_PATH}/${category.toLowerCase()}/${imageId}`
-    );
-    await entryRef.remove();
+    try {
+      const entryRef = dbRef.child(
+        `${GALLERY_IMAGES_PATH}/${category.toLowerCase()}/${imageId}`
+      );
+      await entryRef.remove();
 
-    const storagePath = storageRef.child(
-      `images/${category.toLowerCase()}/${imageId}.jpg`
-    );
+      const storagePath = storageRef.child(
+        `images/${category.toLowerCase()}/${imageId}.jpg`
+      );
 
-    const previewStoragePath = storageRef.child(
-      `images/${category.toLowerCase()}/${imageId}preview.jpg`
-    )
+      const previewStoragePath = storageRef.child(
+        `images/${category.toLowerCase()}/${imageId}preview.jpg`
+      );
 
-    await storagePath.delete();
-    await previewStoragePath.delete();
+      await storagePath.delete();
+      await previewStoragePath.delete();
+    } catch (err) {
+      return {
+        error: err,
+      }
+    }
   };
 
   const firebaseContext = {

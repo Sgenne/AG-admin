@@ -23,7 +23,7 @@ const EditCategoryImagesPage = () => {
   };
 
   const deleteImageHandler = async (imageId) => {
-    firebaseContext.deleteImage(category, imageId);
+    await firebaseContext.deleteImage(category, imageId);
     updateDisplayedImages();
   };
 
