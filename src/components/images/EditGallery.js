@@ -11,11 +11,11 @@ const EditImages = (props) => {
     const buttons = props.categories.map((category) => {
 
       const clickHandler = () => {
-        history.push(`/bilder/${category.categoryName}`)
+        history.push(`/bilder/${category.categoryName.toLowerCase()}`)
       }
 
       return (
-        <button key={category.categoryName} onClick={clickHandler} >{category.categoryName}</button>
+        <button key={category.categoryName} onClick={clickHandler} >{category.categoryName.toLowerCase()}</button>
       );
     });
 

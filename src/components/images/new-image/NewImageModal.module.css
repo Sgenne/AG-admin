@@ -1,0 +1,44 @@
+.container {
+  font-weight: 500;
+}
+
+.container input {
+  color: black;
+}
+
+.container input[type="file"] {
+display: none;
+} 
+.container div {
+  margin-top: 0.6rem;
+}
+
+.container label {
+  margin-right: 1rem;
+}
+
+.file-input-container {
+}
+
+.button-section {
+  margin-top: 1rem;
+}
+
+.btn {
+  margin-right: 1rem;
+  min-height: 2rem;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: "Roboto", sans-serif;
+  color: black;
+}
+
+.upload-icon-container {
+  width: 1.6rem;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #d6d6d6;
+}
