@@ -4,14 +4,10 @@ import Modal from "../../ui/modal/Modal";
 import styles from "./NewImageModal.module.css";
 
 const NewImageModal = (props) => {
-  const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredFile, setEnteredFile] = useState(null);
 
   const fileInputRef = useRef(null);
 
-  const titleChangeHandler = (event) => {
-    setEnteredTitle(event.target.value);
-  };
 
   const fileChangeHandler = (event) => {
     setEnteredFile(event.target.files[0]);
@@ -24,25 +20,13 @@ const NewImageModal = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
-    props.onSubmit({
-      imageFile: enteredFile,
-      imageTitle: enteredTitle,
-    });
+    props.onSubmit(enteredFile);
   };
 
   return (
     <Modal>
       <div className={styles["container"]}>
         <form onSubmit={submitHandler}>
-          <div>
-            <label htmlFor="image-title">Bildnamn:</label>
-            <input
-              value={enteredTitle}
-              onChange={titleChangeHandler}
-              id="image-title"
-              type="text"
-            />
-          </div>
           <div className={styles["file-input-container"]}>
             <button
               className={styles["btn"]}

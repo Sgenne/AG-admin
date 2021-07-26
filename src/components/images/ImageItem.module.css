@@ -20,8 +20,9 @@
 
 .info-container img {
   height: 50vh;
-  width: auto;
+  max-width: 150%;
   margin-left: 1rem;
+  object-fit: cover;
 }
 
 .control-section {

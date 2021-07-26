@@ -11,7 +11,6 @@ const EditImagesPage = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       const fetchedCategories = await firebaseContext.getCategories();
-      console.log("fetched categories: ", fetchedCategories);
       setCategories(fetchedCategories.categories);
     }
     fetchCategories();

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 
 import FirebaseContext from "../store/firebase-context";
 
-import EditCategoryImages from "../components/images/EditCategoryImages";
+import EditImages from "../components/images/EditImages";
 
 const EditCategoryImagesPage = () => {
   const [images, setImages] = useState([]);
@@ -17,14 +17,19 @@ const EditCategoryImagesPage = () => {
     }
   }, [category, firebaseContext]);
 
-  const addImageHandler = async (image, title) => {
-    await firebaseContext.addImage(category, image, title);
-    updateDisplayedImages();
+  const addImageHandler = async (image) => {
+    const result = await firebaseContext.addImage(category, image);
+
+    if (!result.error) {
+      setImages((prevImages) => [...prevImages, result]);
+    }
   };
 
   const deleteImageHandler = async (imageId) => {
-    await firebaseContext.deleteImage(category, imageId);
-    updateDisplayedImages();
+    setImages((prevImages) =>
+      prevImages.filter((image) => image.id !== imageId)
+    );
+    firebaseContext.deleteImage(category, imageId);
   };
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const EditCategoryImagesPage = () => {
 
   return (
     <>
-      <EditCategoryImages
+      <EditImages
         onDeleteImage={deleteImageHandler}
         onAddImage={addImageHandler}
         images={images}

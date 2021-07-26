@@ -6,10 +6,6 @@ import "firebase/storage";
 
 import FirebaseContext from "./firebase-context";
 
-const IMAGE_COMPRESSION_OPTIONS = {
-  maxSizeMB: 0.1,
-};
-
 firebase.initializeApp({
   apiKey: "AIzaSyAX8L6EW_qA1hHJar-rA4VMX2m8DmhWc98",
   authDomain: "foto-7b483.firebaseapp.com",
@@ -21,11 +17,20 @@ firebase.initializeApp({
   appId: "1:257680495752:web:e4f51d2f1d50d13aecfb3d",
 });
 
+const PREVIEW_IMAGE_COMPRESSION_OPTIONS = {
+  maxSizeMB: 0.08,
+};
+
+const LARGE_IMAGE_COMPRESSION_OPTIONS = {
+  maxSizeMB: 3,
+};
+
 const dbRef = firebase.database().ref();
 const storageRef = firebase.storage().ref();
 
 const GALLERY_IMAGES_PATH = "gallery-images";
 const GALLERY_CATEGORIES_PATH = "gallery-categories";
+const SCROLLING_IMAGES_PATH = "scrolling-images";
 
 const FirebaseProvider = (props) => {
   const getCategoryImages = async (category) => {
@@ -35,6 +40,21 @@ const FirebaseProvider = (props) => {
         .get();
 
       if (!fetchedImages.exists()) return { images: [] };
+
+      const imageArray = Object.values(fetchedImages.val());
+      return { images: imageArray };
+    } catch (err) {
+      return { error: err };
+    }
+  };
+
+  const getScrollingImages = async () => {
+    try {
+      const fetchedImages = await dbRef.child(`${SCROLLING_IMAGES_PATH}`).get();
+
+      if (!fetchedImages.exists()) return { images: [] };
+
+      console.log(fetchedImages.val());
 
       const imageArray = Object.values(fetchedImages.val());
       return { images: imageArray };
@@ -53,11 +73,16 @@ const FirebaseProvider = (props) => {
     }
   };
 
-  const addImage = async (category, image, title) => {
+  // Make new function for uploading scrolling image
+  const addImage = async (category, image) => {
     try {
       const previewImage = await imageCompression(
         image,
-        IMAGE_COMPRESSION_OPTIONS
+        PREVIEW_IMAGE_COMPRESSION_OPTIONS
+      );
+      const largeImage = await imageCompression(
+        image,
+        LARGE_IMAGE_COMPRESSION_OPTIONS
       );
 
       const imageId = dbRef
@@ -67,7 +92,7 @@ const FirebaseProvider = (props) => {
       const firebaseFilePath = storageRef.child(
         `images/${category.toLowerCase()}/${imageId}.jpg`
       );
-      await firebaseFilePath.put(image);
+      await firebaseFilePath.put(largeImage);
       const downloadUrl = await firebaseFilePath.getDownloadURL();
 
       const firebaseThumbnailPath = storageRef.child(
@@ -79,15 +104,50 @@ const FirebaseProvider = (props) => {
       await dbRef
         .child(`${GALLERY_IMAGES_PATH}/${category.toLowerCase()}/${imageId}`)
         .set({
-          title,
           id: imageId,
           "download-url": downloadUrl,
           "preview-url": previewUrl,
         });
+
+      const uploadedImage = { id: imageId };
+      uploadedImage["download-url"] = downloadUrl;
+      uploadedImage["preview-url"] = previewUrl;
+
+      return uploadedImage;
     } catch (err) {
       return {
         error: err,
       };
+    }
+  };
+
+  const addScrollingImage = async (image) => {
+    try {
+      const imageId = dbRef.child(SCROLLING_IMAGES_PATH).push().key;
+
+      const compressedImage = await imageCompression(
+        image,
+        LARGE_IMAGE_COMPRESSION_OPTIONS
+      );
+
+      const firebaseFilePath = storageRef.child(
+        `images/framsida/${imageId}.jpg`
+      );
+
+      await firebaseFilePath.put(compressedImage);
+      const downloadUrl = await firebaseFilePath.getDownloadURL();
+
+      await dbRef.child(`${SCROLLING_IMAGES_PATH}/${imageId}`).set({
+        id: imageId,
+        "download-url": downloadUrl,
+      });
+
+      const uploadedImage = { id: imageId };
+      uploadedImage["download-url"] = downloadUrl;
+
+      return uploadedImage;
+    } catch (error) {
+      return { error };
     }
   };
 
@@ -108,18 +168,38 @@ const FirebaseProvider = (props) => {
 
       await storagePath.delete();
       await previewStoragePath.delete();
+
+      return {};
     } catch (err) {
       return {
         error: err,
-      }
+      };
+    }
+  };
+
+  const deleteScrollingImage = async (imageId) => {
+    try {
+      const entryRef = dbRef.child(`${SCROLLING_IMAGES_PATH}/${imageId}`);
+      await entryRef.remove();
+
+      const storagePath = storageRef.child(`images/framsida/${imageId}.jpg`);
+
+      await storagePath.delete();
+
+      return {};
+    } catch (error) {
+      return { error };
     }
   };
 
   const firebaseContext = {
     getCategoryImages,
+    getScrollingImages,
     getCategories,
     addImage,
+    addScrollingImage,
     deleteImage,
+    deleteScrollingImage,
   };
 
   return (

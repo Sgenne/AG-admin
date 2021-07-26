@@ -3,13 +3,17 @@ import ImageItemButton from "./ImageItemButton";
 
 const ImageItem = (props) => {
   return (
-    <div className={styles["image-item"]}>
+    <div
+      className={styles["image-item"]}
+      onClick={() => {
+      }}
+    >
       <div className={styles["info-container"]}>
         <h2>{props.image.title}</h2>
-        <img src={props.image["preview-url"]} alt="" />
+        <img src={props.image["preview-url"] || props.image["download-url"]} alt="" />
       </div>
       <div className={styles["control-section"]}>
-        <ImageItemButton onClick={props.onDelete} />        
+        <ImageItemButton onClick={props.onDelete} />
       </div>
     </div>
   );
