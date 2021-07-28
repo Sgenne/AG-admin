@@ -1,36 +1,95 @@
+import { useContext, useState } from "react";
+
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import styles from "./NewPost.module.css";
+import UploadAdapterPlugin from "../../CkEditor/upload-adapter";
+import FirebaseContext from "../../store/firebase-context";
 
 const NewPost = () => {
+  const [addedImages, setAddedImages] = useState([]);
+  const [postTitle, setPostTitle] = useState("");
+  const [postContent, setPostContent] = useState("");
+
+  const firebaseContext = useContext(FirebaseContext);
+
+  const validInput = postTitle !== "" && postContent !== "";
+
+  const titleChangeHandler = (event) => {
+    setPostTitle(event.target.value);
+  };
+
+  const newImageAddedHandler = (image) => {
+    setAddedImages((prevImages) => [image, ...prevImages]);
+  };
+
+  const postContentChangeHandler = (_, editor) => {
+    const data = editor.getData();
+    setPostContent(data);
+  };
+
+  const submitButtonHandler = () => {
+    if (!validInput) return;
+
+    console.log("valid input")
+
+    firebaseContext.addBlogPost({
+      content: postContent,
+      addedImages: addedImages,
+    });
+  };
+
   return (
-    <div className={styles["editor-container"]}>
-      <CKEditor
-        editor={ClassicEditor}
-        data="<p>Hello from CKEditor 5!</p>"
-        onInit={(editor) => {
-          // You can store the "editor" and use when it is needed.
-          // console.log("Editor is ready to use!", editor);
-          editor.editing.view.change((writer) => {
-            writer.setStyle(
-              "height",
-              "400px",
-              editor.editing.view.document.getRoot()
-            );
-          });
-        }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          console.log({ event, editor, data });
-        }}
-        onBlur={(event, editor) => {
-          console.log("Blur.", editor);
-        }}
-        onFocus={(event, editor) => {
-          console.log("Focus.", editor);
-        }}
-      />
+    <div className={styles["container"]}>
+      <div className={styles["editor-container"]}>
+        <CKEditor
+          editor={ClassicEditor}
+          onChange={postContentChangeHandler}
+          data=""
+          value={postContent}
+          config={{
+            extraPlugins: [
+              UploadAdapterPlugin.bind(
+                null,
+                firebaseContext,
+                newImageAddedHandler
+              ),
+            ],
+          }}
+          onReady={(editor) => {
+            editor.editing.view.change((writer) => {
+              writer.setStyle(
+                "height",
+                "100%",
+                editor.editing.view.document.getRoot()
+              );
+            });
+          }}
+        />
+      </div>
+      <div className={styles["control-section"]}>
+        <div className={styles["title-input-section"]}>
+          <label htmlFor="title-input">Titel:</label>
+          <input
+            value={postTitle}
+            onChange={titleChangeHandler}
+            type="text"
+            name="title"
+            id="title-input"
+            className={styles["title-input"]}
+          />
+        </div>
+        <button
+          onClick={submitButtonHandler}
+          className={`${styles["btn"]} ${
+            validInput ? styles["valid-btn"] : styles["invalid-btn"]
+          }`}
+          type="submit"
+        >
+          Lägg till
+        </button>
+      </div>
     </div>
   );
 };

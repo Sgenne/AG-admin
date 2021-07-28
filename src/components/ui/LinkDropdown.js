@@ -17,13 +17,11 @@ const LinkDropdown = (props) => {
 
   useEffect(() => {
     const links = props.links.map((link) => {
-      return <Link to={link.to}>{link.title}</Link>
+      return <Link key={link.title} to={link.to}>{link.title}</Link>
     });
 
     setDropdownLinks(links);
   }, [props.links]);
-
-  console.log("links: ", dropdownLinks)
 
   return (
     <div

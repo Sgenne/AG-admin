@@ -6,8 +6,11 @@ const FirebaseContext = createContext({
   getCategories: () => {},
   addImage: (category, image, title) => {},
   addScrollingImage: (image) => {},
+  addCKEditorImage: (image) => {},
   deleteImage: (category, imageId) => {},
   deleteScrollingImage: (imageId) => {},
+  deleteCKEditorImage: (imageName) => {},
+  addBlogPost: (post, addedImages) => {},
 });
 
 export default FirebaseContext;

@@ -31,6 +31,7 @@ const storageRef = firebase.storage().ref();
 const GALLERY_IMAGES_PATH = "gallery-images";
 const GALLERY_CATEGORIES_PATH = "gallery-categories";
 const SCROLLING_IMAGES_PATH = "scrolling-images";
+const BLOG_POSTS_PATH = "blog-posts";
 
 const FirebaseProvider = (props) => {
   const getCategoryImages = async (category) => {
@@ -53,8 +54,6 @@ const FirebaseProvider = (props) => {
       const fetchedImages = await dbRef.child(`${SCROLLING_IMAGES_PATH}`).get();
 
       if (!fetchedImages.exists()) return { images: [] };
-
-      console.log(fetchedImages.val());
 
       const imageArray = Object.values(fetchedImages.val());
       return { images: imageArray };
@@ -151,6 +150,17 @@ const FirebaseProvider = (props) => {
     }
   };
 
+  const addCKEditorImage = async (image) => {
+    try {
+      const storagePath = storageRef.child(`images/CKEditor/${image.name}`);
+      await storagePath.put(image);
+      const downloadUrl = await storagePath.getDownloadURL();
+      return { default: downloadUrl };
+    } catch (error) {
+      return { error };
+    }
+  };
+
   const deleteImage = async (category, imageId) => {
     try {
       const entryRef = dbRef.child(
@@ -192,14 +202,49 @@ const FirebaseProvider = (props) => {
     }
   };
 
+  const deleteCKEditorImage = (imageName) => {
+    try {
+      const storagePath = storageRef.child(`images/CKEditor/${imageName}`);
+      storagePath.delete();
+      return {};
+    } catch (error) {
+      return { error };
+    }
+  };
+
+  const addBlogPost = async (post) => {
+    const timestamp = new Date().toISOString();
+    try {
+      const postDbPath = dbRef.child(BLOG_POSTS_PATH);
+      const postId = postDbPath.push().key;
+
+      const postObject = {
+        content: post.content,
+        timestamp: timestamp,
+        id: postId,
+        addedImages: post.addedImages,
+      };
+
+      await postDbPath.child(postId).set(postObject);
+      return {
+        post: postObject,
+      };
+    } catch (error) {
+      return { error };
+    }
+  };
+
   const firebaseContext = {
     getCategoryImages,
     getScrollingImages,
     getCategories,
     addImage,
     addScrollingImage,
+    addCKEditorImage,
     deleteImage,
     deleteScrollingImage,
+    deleteCKEditorImage,
+    addBlogPost,
   };
 
   return (

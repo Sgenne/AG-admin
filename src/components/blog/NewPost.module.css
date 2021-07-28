@@ -1,6 +1,53 @@
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  margin: 2rem 0;
+}
+
 .editor-container {
-    height: 40vh;    
-    width: 100vw;
-    left: 10rem;
-    padding: 2rem 28vw;
+  height: auto;
+  width: 100%;
+  padding: 0 10vw;
+  height: 100px;
+}
+
+.control-section {
+  color: #f5f6f7;
+  font-weight: 500;
+}
+
+.control-section label {
+  margin-right: 1rem;
+}
+
+.btn {
+  width: 6rem;
+  height: 2rem;
+  background-color: #18191a;
+  border: 2px solid #303846;
+  transition: border 0.2s ease-out, color 0.2s ease-out;
+  box-shadow: 0.2s ease-out;
+  border-radius: 15px;
+  font-weight: 500;
+  color: #f5f6f7;
+  margin: 1rem 0;
+  outline: none;
+}
+
+.valid-btn:hover {
+  border: 2px solid #3d9fd8;
+  color: #3d9fd8;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px, -2px -2px 4px;
+}
+
+.valid-btn:active {
+  border: 2px solid #0b4566;
+  color: #0b4566;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px, -2px -2px 4px;
+}
+
+.invalid-btn {
+  cursor: not-allowed;
 }
