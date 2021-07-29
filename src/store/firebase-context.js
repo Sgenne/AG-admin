@@ -11,6 +11,9 @@ const FirebaseContext = createContext({
   deleteScrollingImage: (imageId) => {},
   deleteCKEditorImage: (imageName) => {},
   addBlogPost: (post, addedImages) => {},
+  deleteBlogPost: (postId) => {},
+  getBlogPost: (postId) => {},
+  getAllBlogPosts: () => {},
 });
 
 export default FirebaseContext;

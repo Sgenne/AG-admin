@@ -1,5 +1,5 @@
 import styles from "./ImageItem.module.css";
-import ImageItemButton from "./ImageItemButton";
+import DeleteButton from "./DeleteButton";
 
 const ImageItem = (props) => {
   return (
@@ -13,7 +13,7 @@ const ImageItem = (props) => {
         <img src={props.image["preview-url"] || props.image["download-url"]} alt="" />
       </div>
       <div className={styles["control-section"]}>
-        <ImageItemButton onClick={props.onDelete} />
+        <DeleteButton onClick={props.onDelete} />
       </div>
     </div>
   );

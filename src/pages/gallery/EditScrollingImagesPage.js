@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import EditImages from "../components/images/EditImages";
+import EditImages from "../../components/images/EditImages";
 
-import FirebaseContext from "../store/firebase-context";
+import FirebaseContext from "../../store/firebase-context";
 
 const EditScrollingImagesPage = () => {
   const [images, setImages] = useState([]);

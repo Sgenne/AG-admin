@@ -222,6 +222,7 @@ const FirebaseProvider = (props) => {
         content: post.content,
         timestamp: timestamp,
         id: postId,
+        title: post.title,
         addedImages: post.addedImages,
       };
 
@@ -230,6 +231,60 @@ const FirebaseProvider = (props) => {
         post: postObject,
       };
     } catch (error) {
+      return { error };
+    }
+  };
+
+  const deleteBlogPost = async (postId) => {
+    try {
+      const postRef = dbRef.child(`${BLOG_POSTS_PATH}/${postId}`);
+      postRef.remove();
+    } catch (error) {
+      return { error };
+    }
+  };
+
+  const getBlogPost = async (postId) => {
+    try {
+      const fetchResult = await dbRef.child(BLOG_POSTS_PATH).get();
+
+      if (!fetchResult.exists()) {
+        return {
+          error: "No post found.",
+        };
+      }
+
+      const post = Object.values(fetchResult.val())[0];
+      console.log("fetched post: ", post)
+
+      return {
+        post,
+      };
+    } catch (error) {
+      console.log("ERROR", error)
+      return {
+        error,
+      };
+    }
+  };
+
+  const getAllBlogPosts = async () => {
+    try {
+      const fetchResult = await dbRef.child(BLOG_POSTS_PATH).get();
+
+      if (!fetchResult.exists()) {
+        return {
+          posts: [],
+        };
+      }
+
+      const posts = Object.values(fetchResult.val());
+
+      return {
+        posts,
+      };
+    } catch (error) {
+      console.log(error);
       return { error };
     }
   };
@@ -245,6 +300,9 @@ const FirebaseProvider = (props) => {
     deleteScrollingImage,
     deleteCKEditorImage,
     addBlogPost,
+    deleteBlogPost,
+    getBlogPost,
+    getAllBlogPosts,
   };
 
   return (

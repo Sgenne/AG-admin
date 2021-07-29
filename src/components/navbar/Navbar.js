@@ -11,8 +11,8 @@ const BLOG_LINKS = [
     title: "Nytt inlägg",
   },
   {
-    to: "/blogg/redigera-inlagg",
-    title: "Redigera inlägg",
+    to: "/blogg/inlagg",
+    title: "Inlägg",
   },
 ];
 

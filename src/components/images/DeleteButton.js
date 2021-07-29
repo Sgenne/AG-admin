@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import TrashIcon from "../../icons/TrashIcon";
-import styles from "./ImageItemButton.module.css";
+import styles from "./DeleteButton.module.css";
 
-const ImageItemButton = (props) => {
+const DeleteButton = (props) => {
   const [hovering, setHovering] = useState(false);
 
   const mouseEnterHandler = () => {
@@ -26,4 +26,4 @@ const ImageItemButton = (props) => {
   );
 };
 
-export default ImageItemButton;
+export default DeleteButton;

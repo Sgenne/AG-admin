@@ -1,0 +1,23 @@
+.blog-post-item {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  color: #F5F6F7;
+  border: 2px solid #303846;
+  padding: 0 1rem;
+  margin: 0;
+  background-color: #489AC9;
+  border-radius: 10px;
+  transition: transform 0.2s ease-out, background-color 0.2s ease-out; 
+}
+
+.blog-post-item:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+
+.blog-post-item__btns {
+  padding: 0.6rem 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

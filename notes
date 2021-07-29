@@ -1,10 +1,9 @@
 TODO today:
 =============
-* list uploaded posts
-* redirect when posts have been uploaded
+* Edit existing posts on submit
+* Restyle button in newPost
 
 Backlog:
 ===========
 * Use reducer in newPost
 * Check if CKEditor image with given name exists before upload. If yes, add "(1)" to name.
-* edit uploaded posts

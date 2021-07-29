@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
-import EditCategoryImagesPage from "./pages/EditCategoryImagesPage";
+import EditCategoryImagesPage from "./pages/gallery/EditCategoryImagesPage";
 import Navbar from "./components/navbar/Navbar";
-import NewBlogPostPage from "./pages/NewBlogPostPage";
-import EditScrollingImagesPage from "./pages/EditScrollingImagesPage";
+import NewBlogPostPage from "./pages/blog/NewBlogPostPage";
+import EditScrollingImagesPage from "./pages/gallery/EditScrollingImagesPage";
+import BlogPostListPage from "./pages/blog/BlogPostListPage";
+import EditBlogPostPage from "./pages/blog/EditBlogPostPage";
 
 function App() {
   return (
@@ -25,13 +27,16 @@ function App() {
             <h1>Om mig</h1>
           </Route>
           <Route path="/blogg" exact>
-            <Redirect to="blogg/redigera-inlagg" />
+            <Redirect to="blogg/inlagg" />
           </Route>
           <Route path="/blogg/nytt-inlagg" exact>
             <NewBlogPostPage />
           </Route>
-          <Route path="/blogg/redigera-inlagg" exact>
-            <h1>Redigera inlägg</h1>
+          <Route path="/blogg/inlagg" exact>
+            <BlogPostListPage />
+          </Route>
+          <Route path="/blogg/redigera-inlagg/:postId" exact>
+            <EditBlogPostPage />
           </Route>
         </Switch>
       </BrowserRouter>

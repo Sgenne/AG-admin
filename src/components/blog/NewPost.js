@@ -7,10 +7,10 @@ import styles from "./NewPost.module.css";
 import UploadAdapterPlugin from "../../CkEditor/upload-adapter";
 import FirebaseContext from "../../store/firebase-context";
 
-const NewPost = () => {
-  const [addedImages, setAddedImages] = useState([]);
-  const [postTitle, setPostTitle] = useState("");
-  const [postContent, setPostContent] = useState("");
+const NewPost = (props) => {
+  const [addedImages, setAddedImages] = useState(props.initialImages || []);
+  const [postTitle, setPostTitle] = useState(props.initialTitle || "");
+  const [postContent, setPostContent] = useState(props.initialContent || "");
 
   const firebaseContext = useContext(FirebaseContext);
 
@@ -31,14 +31,14 @@ const NewPost = () => {
 
   const submitButtonHandler = () => {
     if (!validInput) return;
-
-    console.log("valid input")
-
-    firebaseContext.addBlogPost({
+    props.onAddPost({
       content: postContent,
+      title: postTitle,
       addedImages: addedImages,
     });
   };
+
+  console.log("props.initialTitle", props.initialTitle)
 
   return (
     <div className={styles["container"]}>
@@ -46,8 +46,7 @@ const NewPost = () => {
         <CKEditor
           editor={ClassicEditor}
           onChange={postContentChangeHandler}
-          data=""
-          value={postContent}
+          data={postContent}
           config={{
             extraPlugins: [
               UploadAdapterPlugin.bind(
@@ -87,7 +86,7 @@ const NewPost = () => {
           }`}
           type="submit"
         >
-          Lägg till
+          {props.submitText || "Lägg till"}
         </button>
       </div>
     </div>

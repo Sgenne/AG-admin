@@ -1,9 +1,9 @@
 import { useContext, useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router";
 
-import FirebaseContext from "../store/firebase-context";
+import FirebaseContext from "../../store/firebase-context";
 
-import EditImages from "../components/images/EditImages";
+import EditImages from "../../components/images/EditImages";
 
 const EditCategoryImagesPage = () => {
   const [images, setImages] = useState([]);
