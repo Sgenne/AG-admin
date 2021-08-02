@@ -31,14 +31,13 @@ const NewPost = (props) => {
 
   const submitButtonHandler = () => {
     if (!validInput) return;
-    props.onAddPost({
+    props.onSubmit({
       content: postContent,
       title: postTitle,
       addedImages: addedImages,
     });
   };
 
-  console.log("props.initialTitle", props.initialTitle)
 
   return (
     <div className={styles["container"]}>

@@ -151,14 +151,45 @@ const FirebaseProvider = (props) => {
   };
 
   const addCKEditorImage = async (image) => {
+    // const CKEditorImagesFolder = storageRef.child("images/CKEditor");
+    // const folderItems = await CKEditorImagesFolder.listAll();
+
+    // folderItems.items.forEach((item) => {
+    //   console.log(item.name);
+    // });
+
     try {
-      const storagePath = storageRef.child(`images/CKEditor/${image.name}`);
-      await storagePath.put(image);
-      const downloadUrl = await storagePath.getDownloadURL();
+      // const imageRef = getAvailableCKEditorImageRef(image.name);
+      const imageRef = await getAvailableCKEditorImageRef(image);
+      console.log("received imageRef: ", imageRef.fullPath)
+      await imageRef.put(image);
+      const downloadUrl = await imageRef.getDownloadURL();
+      console.log(downloadUrl)
       return { default: downloadUrl };
     } catch (error) {
+      console.log(error);
       return { error };
     }
+  };
+
+  const getAvailableCKEditorImageRef = async (image) => {
+    const folderRef = storageRef.child("images/CKEditor");
+    const folderItems = await folderRef.listAll();
+    const existingImageNames = folderItems.items.map((item) => item.name);
+
+    if (!existingImageNames.includes(image.name))
+      return storageRef.child("images/CKEditor/" + image.name);
+
+    let imageNumber = 0;
+    const imagePrefix = image.name.slice(0, image.name.length - 4);
+    let newImageName = `${imagePrefix}(${imageNumber}).jpg`;
+
+    while (existingImageNames.includes(newImageName)) {
+      imageNumber += 1;
+      newImageName = `${imagePrefix}(${imageNumber}).jpg`;
+    }
+    console.log("returning" + "images/CkEditor/" + newImageName);
+    return storageRef.child("images/CKEditor/" + newImageName);
   };
 
   const deleteImage = async (category, imageId) => {
@@ -205,7 +236,9 @@ const FirebaseProvider = (props) => {
   const deleteCKEditorImage = (imageName) => {
     try {
       const storagePath = storageRef.child(`images/CKEditor/${imageName}`);
+      console.log("storagePath: ", storagePath);
       storagePath.delete();
+      console.log("deleted");
       return {};
     } catch (error) {
       return { error };
@@ -235,10 +268,23 @@ const FirebaseProvider = (props) => {
     }
   };
 
-  const deleteBlogPost = async (postId) => {
+  const updateBlogPost = async (post) => {
+    try {
+      const postDbPath = dbRef.child(`${BLOG_POSTS_PATH}/${post.id}`);
+      await postDbPath.set(post);
+      return {
+        post,
+      };
+    } catch (error) {
+      return { error };
+    }
+  };
+
+  const deleteBlogPost = async (postId, addedImages) => {
     try {
       const postRef = dbRef.child(`${BLOG_POSTS_PATH}/${postId}`);
       postRef.remove();
+      addedImages.forEach((image) => deleteCKEditorImage(image));
     } catch (error) {
       return { error };
     }
@@ -246,7 +292,9 @@ const FirebaseProvider = (props) => {
 
   const getBlogPost = async (postId) => {
     try {
-      const fetchResult = await dbRef.child(BLOG_POSTS_PATH).get();
+      const fetchResult = await dbRef
+        .child(`${BLOG_POSTS_PATH}/${postId}`)
+        .get();
 
       if (!fetchResult.exists()) {
         return {
@@ -254,14 +302,11 @@ const FirebaseProvider = (props) => {
         };
       }
 
-      const post = Object.values(fetchResult.val())[0];
-      console.log("fetched post: ", post)
-
+      const post = fetchResult.val();
       return {
         post,
       };
     } catch (error) {
-      console.log("ERROR", error)
       return {
         error,
       };
@@ -300,6 +345,7 @@ const FirebaseProvider = (props) => {
     deleteScrollingImage,
     deleteCKEditorImage,
     addBlogPost,
+    updateBlogPost,
     deleteBlogPost,
     getBlogPost,
     getAllBlogPosts,

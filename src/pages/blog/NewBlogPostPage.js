@@ -14,7 +14,7 @@ const NewBlogPostPage = () => {
     history.push("/blogg/inlagg");
   };
 
-  return <NewPost onAddPost={addNewPostHandler} />;
+  return <NewPost onSubmit={addNewPostHandler} />;
 };
 
 export default NewBlogPostPage;

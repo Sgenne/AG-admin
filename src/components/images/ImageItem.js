@@ -5,8 +5,6 @@ const ImageItem = (props) => {
   return (
     <div
       className={styles["image-item"]}
-      onClick={() => {
-      }}
     >
       <div className={styles["info-container"]}>
         <h2>{props.image.title}</h2>

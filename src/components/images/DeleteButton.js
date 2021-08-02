@@ -14,12 +14,17 @@ const DeleteButton = (props) => {
     setHovering(false);
   };
 
+  const buttonClickedHandler = (event) => {
+    event.stopPropagation();
+    props.onClick();
+  }
+
   return (
     <button
       onMouseEnter={mouseEnterHandler}
       onMouseLeave={mouseLeaveHandler}
       className={styles["btn"]}
-      onClick={props.onClick}
+      onClick={buttonClickedHandler}
     >
       <TrashIcon className={styles["icon"]} hover={hovering} />
     </button>

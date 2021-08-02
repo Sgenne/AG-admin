@@ -9,7 +9,7 @@ const PostList = (props) => {
       <BlogPostItem
         title={post.title}
         timestamp={post.timestamp}
-        onDelete={onDeletePost.bind(null, post.id)}
+        onDelete={onDeletePost.bind(null, post)}
         onClick={onPostClicked.bind(null, post.id)}
       />
     </li>

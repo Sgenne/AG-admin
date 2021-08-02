@@ -19,9 +19,9 @@ const BlogPostListPage = () => {
     fetchPosts();
   }, [firebaseContext]);
 
-  const deleteBlogPostHandler = (postId) => {
-    firebaseContext.deleteBlogPost(postId);
-    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId));
+  const deleteBlogPostHandler = (deletePost) => {
+    firebaseContext.deleteBlogPost(deletePost.id, deletePost.addedImages);
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== deletePost.id));
   };
 
   const postClickedHandler = (postId) => {

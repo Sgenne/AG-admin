@@ -5,8 +5,6 @@
 }
 
 .editor-container {
-  height: auto;
-  width: 100%;
   padding: 0 10vw;
   height: 100px;
 }
@@ -21,8 +19,7 @@
 }
 
 .btn {
-  width: 6rem;
-  height: 2rem;
+  padding: 0.5rem 1rem;
   background-color: #18191a;
   border: 2px solid #303846;
   transition: border 0.2s ease-out, color 0.2s ease-out;

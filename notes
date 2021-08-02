@@ -1,9 +1,7 @@
 TODO today:
 =============
-* Edit existing posts on submit
-* Restyle button in newPost
+* Try newPost with no images in folder. Might break since no items to map over.
 
 Backlog:
 ===========
 * Use reducer in newPost
-* Check if CKEditor image with given name exists before upload. If yes, add "(1)" to name.

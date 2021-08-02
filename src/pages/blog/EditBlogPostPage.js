@@ -16,14 +16,21 @@ const EditBlogPostPage = () => {
       const result = await firebaseContext.getBlogPost(postId);
       setPost(result.post);
     };
-    fetchPost(postId); // postid
+    fetchPost(postId);
   }, [firebaseContext, postId]);
 
   if (!post) {
-    return <div></div>
+    return <div></div>;
   }
-  console.log("post in EditBLogPage: ", post)
-  console.log("initialTitle given to NewPost from EditBlogPage: ", post.title)
+
+  const submitHandler = (updatedPost) => {
+    firebaseContext.updateBlogPost({
+      ...post,
+      title: updatedPost.title,
+      content: updatedPost.content,
+      addedImages: updatedPost.addedImages,
+    });
+  };
 
   return (
     <NewPost
@@ -31,6 +38,7 @@ const EditBlogPostPage = () => {
       initialContent={post.content}
       initialImages={post.addedImages}
       submitText="Uppdatera inlägg"
+      onSubmit={submitHandler}
     />
   );
 };
