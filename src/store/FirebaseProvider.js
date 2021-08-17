@@ -17,6 +17,10 @@ firebase.initializeApp({
   appId: "1:257680495752:web:e4f51d2f1d50d13aecfb3d",
 });
 
+const dbRef = firebase.database().ref();
+const storageRef = firebase.storage().ref();
+const auth = firebase.auth();
+
 const PREVIEW_IMAGE_COMPRESSION_OPTIONS = {
   maxSizeMB: 0.08,
 };
@@ -24,9 +28,6 @@ const PREVIEW_IMAGE_COMPRESSION_OPTIONS = {
 const LARGE_IMAGE_COMPRESSION_OPTIONS = {
   maxSizeMB: 3,
 };
-
-const dbRef = firebase.database().ref();
-const storageRef = firebase.storage().ref();
 
 const GALLERY_IMAGES_PATH = "gallery-images";
 const GALLERY_CATEGORIES_PATH = "gallery-categories";
@@ -161,10 +162,10 @@ const FirebaseProvider = (props) => {
     try {
       // const imageRef = getAvailableCKEditorImageRef(image.name);
       const imageRef = await getAvailableCKEditorImageRef(image);
-      console.log("received imageRef: ", imageRef.fullPath)
+      console.log("received imageRef: ", imageRef.fullPath);
       await imageRef.put(image);
       const downloadUrl = await imageRef.getDownloadURL();
-      console.log(downloadUrl)
+      console.log(downloadUrl);
       return { default: downloadUrl };
     } catch (error) {
       console.log(error);
@@ -332,6 +333,10 @@ const FirebaseProvider = (props) => {
       console.log(error);
       return { error };
     }
+  };
+
+  const signIn = (email, password) => {
+    auth.signInWithEmailAndPassword(email, password).then()
   };
 
   const firebaseContext = {
