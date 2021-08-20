@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import NewPost from "../../components/blog/NewPost";
-import FirebaseContext from "../../store/firebase-context";
+import FirebaseContext from "../../store/firebase/firebase-context";
 
 const NewBlogPostPage = () => {
   const history = useHistory();

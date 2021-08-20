@@ -12,7 +12,7 @@ blue (links) - #489AC9
   box-sizing: border-box;  
 }
 
-body, button {
+body, button, input {
   font-family: 'Roboto', sans-serif;
 }
 

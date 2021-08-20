@@ -1,5 +1,5 @@
+import { useState } from "react";
 import imageCompression from "browser-image-compression";
-
 import firebase from "firebase";
 import "firebase/database";
 import "firebase/storage";
@@ -35,6 +35,8 @@ const SCROLLING_IMAGES_PATH = "scrolling-images";
 const BLOG_POSTS_PATH = "blog-posts";
 
 const FirebaseProvider = (props) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   const getCategoryImages = async (category) => {
     try {
       const fetchedImages = await dbRef
@@ -189,7 +191,6 @@ const FirebaseProvider = (props) => {
       imageNumber += 1;
       newImageName = `${imagePrefix}(${imageNumber}).jpg`;
     }
-    console.log("returning" + "images/CkEditor/" + newImageName);
     return storageRef.child("images/CKEditor/" + newImageName);
   };
 
@@ -335,9 +336,14 @@ const FirebaseProvider = (props) => {
     }
   };
 
-  const signIn = (email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then()
-  };
+  const signIn = (email, password) =>
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => setIsAuthenticated(true))
+      .catch((err) => {
+        console.log(err);
+        return { error: err }
+      });
 
   const firebaseContext = {
     getCategoryImages,
@@ -354,6 +360,8 @@ const FirebaseProvider = (props) => {
     deleteBlogPost,
     getBlogPost,
     getAllBlogPosts,
+    signIn,
+    isAuthenticated,
   };
 
   return (

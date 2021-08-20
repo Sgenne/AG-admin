@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import styles from "./Navbar.module.css";
 import LinkDropdown from "../ui/LinkDropdown";
-import FirebaseContext from "../../store/firebase-context";
+import FirebaseContext from "../../store/firebase/firebase-context";
 
 const BLOG_LINKS = [
   {

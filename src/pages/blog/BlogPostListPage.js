@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import PostList from "../../components/blog/PostList";
-import FirebaseContext from "../../store/firebase-context";
+import FirebaseContext from "../../store/firebase/firebase-context";
 
 const BlogPostListPage = () => {
   const [posts, setPosts] = useState([]);

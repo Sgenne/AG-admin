@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import FirebaseContext from "../store/firebase-context";
+import FirebaseContext from "../store/firebase/firebase-context";
 
 import EditGallery from "../components/images/EditGallery";
 

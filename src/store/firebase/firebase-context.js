@@ -15,6 +15,8 @@ const FirebaseContext = createContext({
   deleteBlogPost: (postId) => {},
   getBlogPost: (postId) => {},
   getAllBlogPosts: () => {},
+  signIn: (email, password) => {},
+  isAuthenticated: false,
 });
 
 export default FirebaseContext;

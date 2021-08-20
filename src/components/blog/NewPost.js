@@ -5,7 +5,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 import styles from "./NewPost.module.css";
 import UploadAdapterPlugin from "../../CkEditor/upload-adapter";
-import FirebaseContext from "../../store/firebase-context";
+import FirebaseContext from "../../store/firebase/firebase-context";
 
 const NewPost = (props) => {
   const [addedImages, setAddedImages] = useState(props.initialImages || []);

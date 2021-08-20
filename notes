@@ -1,7 +1,0 @@
-TODO today:
-=============
-* Try newPost with no images in folder. Might break since no items to map over.
-
-Backlog:
-===========
-* Use reducer in newPost
