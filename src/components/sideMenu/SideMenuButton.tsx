@@ -1,6 +1,4 @@
-import { IconType } from "react-icons";
-
-import "../../css/SideMenuButton.css";
+import "../../css/sideMenu/SideMenuButton.css";
 
 interface SideMenuButtonProps {
   children: string;

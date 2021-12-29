@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { FaRegImages, FaRegBookmark, FaDesktop } from "react-icons/fa";
 
-import "../../css/SideMenu.css";
+import "../../css/sideMenu/SideMenu.css";
 import SideMenuButton from "./SideMenuButton";
 
 const SideMenu = () => {
