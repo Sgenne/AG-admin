@@ -9,7 +9,9 @@ function App() {
       <div className="side-menu-container">
         <SideMenu />
       </div>
-      <Routes />
+      <div className="content-container">
+        <Routes />
+      </div>
     </>
   );
 }

@@ -1,0 +1,13 @@
+.image-overview__images {
+  display: grid;
+  grid-template-columns: repeat(3, 32%);
+  justify-content: space-evenly;
+}
+
+.image-overview__image-container {
+  margin-bottom: 2%;
+}
+
+.image-overview__image {
+  width: 100%;
+}
