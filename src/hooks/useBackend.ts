@@ -5,6 +5,7 @@ const GET_SCROLLING_IMAGES_URL = `${HOST}/gallery/scrolling-images`;
 const GET_ALL_GALLERY_IMAGES_URL = `${HOST}/gallery/images`;
 const GET_GALLERY_CATEGORIES_URL = `${HOST}/gallery/categories`;
 const GET_IMAGES_BY_CATEGORY_URL = `${HOST}/gallery/images/`; // append category
+const GET_IMAGE_BY_ID_URL = `${HOST}/gallery/image/`; // append imageId
 const GET_BLOG_POSTS_URL = `${HOST}/blog/posts`;
 const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
 
@@ -20,8 +21,11 @@ const useBackend = () => {
 
     try {
       const response = await fetch(url);
+      console.log("response: ", response);
       result = JSON.parse(await response.json());
+      console.log("result: ", result);
     } catch (err) {
+      console.log("ERROR: ", err);
       setError(errorMessage);
       setIsLoading(false);
       return;
@@ -50,8 +54,17 @@ const useBackend = () => {
     async (category) => {
       return _sendRequest(
         GET_IMAGES_BY_CATEGORY_URL + category,
-
         "Kunde inte hämta bilder."
+      );
+    },
+    [_sendRequest]
+  );
+
+  const getImageById = useCallback(
+    async (imageId: string) => {
+      return _sendRequest(
+        GET_IMAGE_BY_ID_URL + imageId,
+        "Kunde inte hämta bild."
       );
     },
     [_sendRequest]
@@ -104,6 +117,7 @@ const useBackend = () => {
     getAllGalleryImages,
     getGalleryCategories,
     getImagesByCategory,
+    getImageById,
     getBlogPosts,
     getBlogPostsByMonth,
     getBlogPostById,

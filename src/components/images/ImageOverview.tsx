@@ -1,4 +1,4 @@
-import "../../css/ImageOverview.css";
+import "../../css/images/ImageOverview.css";
 import { IImage } from "../../interfaces/image";
 
 interface IImageOverviewProps {
@@ -16,6 +16,7 @@ const ImageOverview = ({ images }: IImageOverviewProps) => {
         className="image-overview__image"
         src={image.compressedImageUrl}
         alt=""
+        onClick={() => console.log("imageId: ", image._id)}
       />
     </span>
   ));

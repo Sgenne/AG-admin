@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import ImageOverview from "../components/images/ImageOverview";
+import Gallery from "../components/Gallery";
 
 import useBackend from "../hooks/useBackend";
 import { IImage } from "../interfaces/image";
@@ -13,12 +13,13 @@ const GalleryPage = () => {
   useEffect(() => {
     const fetchImages = async () => {
       const result = await getAllGalleryImages();
+
       setImages(result.images);
     };
     fetchImages();
   }, [getAllGalleryImages]);
 
-  return <ImageOverview images={images} />;
+  return <Gallery images={images} />;
 };
 
 export default GalleryPage;
