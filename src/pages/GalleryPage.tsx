@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Gallery from "../components/Gallery";
 
@@ -6,6 +7,7 @@ import { IImage } from "../interfaces/image";
 
 const GalleryPage = () => {
   const [images, setImages] = useState<[IImage]>();
+  const navigate = useNavigate();
 
   const { getAllGalleryImages } = useBackend();
 
@@ -19,7 +21,11 @@ const GalleryPage = () => {
     fetchImages();
   }, [getAllGalleryImages]);
 
-  return <Gallery images={images} />;
+  const imageClickHandler = (image: IImage): void => {
+    navigate(`/bilder/${image._id}`);
+  };
+
+  return <Gallery images={images} onImageClick={imageClickHandler} />;
 };
 
 export default GalleryPage;

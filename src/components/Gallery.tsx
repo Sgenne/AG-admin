@@ -4,12 +4,13 @@ import ImageOverview from "./images/ImageOverview";
 
 interface IGalleryProps {
   images: IImage[] | undefined;
+  onImageClick: (image: IImage) => void;
 }
 
-const Gallery = ({ images }: IGalleryProps) => {
+const Gallery = ({ images, onImageClick }: IGalleryProps) => {
   return (
     <div className="gallery">
-      <ImageOverview images={images} />
+      <ImageOverview images={images} onImageClick={onImageClick} />
     </div>
   );
 };

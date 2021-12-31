@@ -1,0 +1,22 @@
+.single-image__page {
+  padding: 1rem;
+}
+
+.single-image__left {
+  width: 100%;
+}
+
+.single-image__image-container {
+  max-width: 100%;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.single-image__image {
+  max-width: 100%;
+  max-height: 100vh;
+}
+
+.single-image__control {
+  width: 30%;
+}

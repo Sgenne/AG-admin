@@ -3,9 +3,10 @@ import { IImage } from "../../interfaces/image";
 
 interface IImageOverviewProps {
   images: IImage[] | undefined;
+  onImageClick: (image: IImage) => void;
 }
 
-const ImageOverview = ({ images }: IImageOverviewProps) => {
+const ImageOverview = ({ images, onImageClick }: IImageOverviewProps) => {
   if (!images) {
     return <></>;
   }
@@ -16,7 +17,7 @@ const ImageOverview = ({ images }: IImageOverviewProps) => {
         className="image-overview__image"
         src={image.compressedImageUrl}
         alt=""
-        onClick={() => console.log("imageId: ", image._id)}
+        onClick={() => onImageClick(image)}
       />
     </span>
   ));

@@ -5,3 +5,8 @@ export interface IImage {
   category: string;
   createdAt: Date | string;
 }
+
+export interface IImageCategory {
+  _id: string;
+  title: string;
+}
