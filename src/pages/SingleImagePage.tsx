@@ -50,7 +50,7 @@ const SingleImagePage = () => {
   };
 
   const disableSubmitChangeButton = image
-    ? image.category !== selectedCategory
+    ? image.category === selectedCategory
     : false;
 
   return (
