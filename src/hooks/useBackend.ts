@@ -8,35 +8,28 @@ const GET_IMAGES_BY_CATEGORY_URL = `${HOST}/gallery/images/`; // append category
 const GET_IMAGE_BY_ID_URL = `${HOST}/gallery/image/`; // append imageId
 const GET_BLOG_POSTS_URL = `${HOST}/blog/posts`;
 const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
-const SIGN_IN_URL = `${HOST}/auth/sign-in`;
 
 const useBackend = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean | string>(false);
 
-  const _sendRequest = useCallback(
-    async (url, errorMessage, method = "GET", body = {}) => {
-      setIsLoading(true);
-      setError(false);
+  const _sendRequest = useCallback(async (url, errorMessage) => {
+    setIsLoading(true);
+    setError(false);
 
-      let result;
+    let result;
 
-      try {
-        const response = await fetch(url, {
-          method: method,
-          body: body,
-        });
-        result = JSON.parse(await response.json());
-      } catch (err) {
-        setError(errorMessage);
-        setIsLoading(false);
-        return;
-      }
+    try {
+      const response = await fetch(url);
+      result = JSON.parse(await response.json());
+    } catch (err) {
+      setError(errorMessage);
       setIsLoading(false);
-      return result;
-    },
-    []
-  );
+      return;
+    }
+    setIsLoading(false);
+    return result;
+  }, []);
 
   /*
   =======================
