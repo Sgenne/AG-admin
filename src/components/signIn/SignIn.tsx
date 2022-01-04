@@ -1,13 +1,15 @@
-import { ChangeEventHandler } from "react";
 import "../../css/SignIn.css";
+import Button from "../UI/Button";
+import Input from "../UI/Input";
 
 interface ISignInProps {
   emailValue: string;
   onEmailChange: (newValue: string) => void;
   passwordValue: string;
   onPasswordChange: (newValue: string) => void;
-  disableSubmit: boolean;
   onSubmit: () => void;
+  message: string;
+  hasError: boolean;
 }
 
 const SignIn = ({
@@ -15,43 +17,41 @@ const SignIn = ({
   onEmailChange,
   passwordValue,
   onPasswordChange,
-  disableSubmit,
   onSubmit,
+  message,
+  hasError,
 }: ISignInProps) => {
-  const emailChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
-    onEmailChange(event.target.value);
-  };
-
-  const passwordChangeHandler: ChangeEventHandler<HTMLInputElement> = (
-    event
-  ) => {
-    onPasswordChange(event.target.value);
-  };
-
   return (
     <div className="sign-in__page">
-      <div className="sign-in__inputs">
+      {message && <div className="sign-in__message">{message}</div>}
+      <div className="sign-in__inputs flex-column ai-center">
         <div className="sign-in__email">
-          <input
+          <label htmlFor="email">Email: </label>
+          <Input
+            id="email"
             name="email"
             type="text"
             value={emailValue}
-            onChange={emailChangeHandler}
+            onChange={onEmailChange}
+            error={hasError}
           />
         </div>
         <div className="sign-in__password">
-          <input
+          <label htmlFor="password">Lösenord: </label>
+          <Input
+            id="password"
             name="password"
             type="password"
             value={passwordValue}
-            onChange={passwordChangeHandler}
+            onChange={onPasswordChange}
+            error={hasError}
           />
         </div>
       </div>
-      <div className="sign-in__control">
-        <button type="submit" disabled={disableSubmit} onClick={onSubmit}>
+      <div className="sign-in__control flex-row jc-center">
+        <Button type="submit" onClick={onSubmit}>
           Logga in
-        </button>
+        </Button>
       </div>
     </div>
   );

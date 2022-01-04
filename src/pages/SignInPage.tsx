@@ -1,30 +1,28 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import SignIn from "../components/signIn/SignIn";
 import { signIn } from "../store/authSlice";
-import { IStoreState } from "../store/store";
 import useInput from "../hooks/useInput";
+import { useState } from "react";
 
 const SignInPage = () => {
-  const { value: emailValue, onChange: onEmailChange } = useInput();
+  const [message, setMessage] = useState("");
+  const [hasError, setHasError] = useState(false);
 
+  const { value: emailValue, onChange: onEmailChange } = useInput();
   const { value: passwordValue, onChange: onPasswordChange } = useInput();
 
   const dispatch = useDispatch();
-  const auth = useSelector((state: IStoreState) => state.auth, shallowEqual);
-
-  useEffect(() => {
-    console.log("auth state: ", auth);
-  }, [auth]);
 
   const submitHandler = () => {
-    if (!(emailValue && passwordValue)) return;
+    if (!(emailValue && passwordValue)) {
+      setMessage("Vänligen ange email och lösenord.");
+      setHasError(true);
+      return;
+    }
 
     dispatch(signIn({ email: emailValue, password: passwordValue }));
   };
-
-  const disableSubmit = !(emailValue && passwordValue);
 
   return (
     <SignIn
@@ -32,8 +30,9 @@ const SignInPage = () => {
       onEmailChange={onEmailChange}
       passwordValue={passwordValue || ""}
       onPasswordChange={onPasswordChange}
-      disableSubmit={disableSubmit}
       onSubmit={submitHandler}
+      hasError={hasError}
+      message={message}
     />
   );
 };

@@ -1,0 +1,24 @@
+.sign-in__page {
+  padding-top: 20vh;
+  text-align: center;
+}
+
+.sign-in__message {
+  background-color: #fa8072;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 1rem 2rem;
+}
+
+.sign-in__inputs {
+  margin-bottom: 1rem;
+}
+
+.sign-in__inputs label {
+  font-size: 1rem;
+  font-weight: 600;
+  position: absolute;
+  transform: translate(-105%, 50%);
+}
