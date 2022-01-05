@@ -1,3 +1,4 @@
+import { KeyboardEvent } from "react";
 import "../../css/UI/Input.css";
 
 interface IInputProps {
@@ -7,6 +8,7 @@ interface IInputProps {
   name?: string;
   id?: string;
   error?: boolean;
+  onKeyDown?: (event: KeyboardEvent) => void;
 }
 
 const Input = ({
@@ -16,6 +18,7 @@ const Input = ({
   name = "input",
   id,
   error = false,
+  onKeyDown,
 }: IInputProps) => {
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange(event.target.value);
@@ -29,6 +32,7 @@ const Input = ({
       name={name}
       onChange={changeHandler}
       id={id}
+      onKeyDown={onKeyDown}
     />
   );
 };

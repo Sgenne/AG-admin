@@ -4,11 +4,26 @@ interface IButtonProps {
   onClick: () => void;
   children: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  salmonHover?: boolean;
 }
 
-const Button = ({ onClick, children, type = "button" }: IButtonProps) => {
+const Button = ({
+  onClick,
+  children,
+  type = "button",
+  disabled = false,
+  salmonHover = false,
+}: IButtonProps) => {
   return (
-    <button className="button pointer" onClick={onClick} type={type}>
+    <button
+      className={`button pointer ${
+        salmonHover ? "salmon-hover" : "grey-hover"
+      }`}
+      onClick={onClick}
+      type={type}
+      disabled={disabled}
+    >
       {children}
     </button>
   );

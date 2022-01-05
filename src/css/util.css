@@ -36,6 +36,14 @@ colors
   background-color: #f2f2f2;
 }
 
+.salmon-hover:hover {
+  background-color: salmon;
+}
+
+.grey-hover:hover {
+  background-color: #e2e1e1;
+}
+
 /* 
 =======================
 cursor
