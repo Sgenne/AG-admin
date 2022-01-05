@@ -18,5 +18,14 @@
 }
 
 .single-image__control {
+  margin-left: 1rem;
   width: 30%;
+}
+
+.single-image__select-container {
+  margin-bottom: 1rem;
+}
+
+.single-image__select {
+  margin-right: 1rem;
 }

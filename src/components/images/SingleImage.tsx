@@ -1,35 +1,13 @@
-import React, { ChangeEvent } from "react";
 import "../../css/images/SingleImage.css";
 import { IImage } from "../../interfaces/image";
+import Button from "../UI/Button";
 
 interface ISingleImage {
   image: IImage | undefined;
-  categories: string[] | undefined;
-  disableSubmitCategoryChangeButton: boolean;
-  onCategoryChanged: (newCategory: string) => void;
-  onSubmitCategoryChange: () => void;
+  onDeleteImage: () => void;
 }
 
-const SingleImage = ({
-  image,
-  categories,
-  disableSubmitCategoryChangeButton,
-  onCategoryChanged,
-  onSubmitCategoryChange,
-}: ISingleImage) => {
-  const categoryOptions = categories
-    ? categories.map((category) => <option key={category}>{category}</option>)
-    : [];
-
-  const changedCategoryOptionHandler = (
-    event: ChangeEvent<HTMLSelectElement>
-  ) => {
-    event.preventDefault();
-    if (!event.target) return;
-
-    onCategoryChanged(event.target.value);
-  };
-
+const SingleImage = ({ image, onDeleteImage }: ISingleImage) => {
   return (
     <div className="single-image__page flex-row jc-space-between">
       <div className="single-image__left">
@@ -40,15 +18,11 @@ const SingleImage = ({
         </div>
       </div>
       <div className="single-image__control">
-        <select
-          className="single-image__category-options"
-          onChange={changedCategoryOptionHandler}
-        >
-          {categoryOptions}
-        </select>
-        <button disabled={disableSubmitCategoryChangeButton}>
-          Uppdatera kategori
-        </button>
+        <div>
+          <Button onClick={onDeleteImage} type="submit" salmonHover>
+            Ta bort bild
+          </Button>
+        </div>
       </div>
     </div>
   );

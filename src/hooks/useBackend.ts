@@ -1,4 +1,6 @@
 import { useState, useCallback } from "react";
+import { useSelector } from "react-redux";
+import { IStoreState } from "../store/store";
 
 const HOST = "http://localhost:8080";
 const GET_SCROLLING_IMAGES_URL = `${HOST}/gallery/scrolling-images`;
@@ -8,32 +10,44 @@ const GET_IMAGES_BY_CATEGORY_URL = `${HOST}/gallery/images/`; // append category
 const GET_IMAGE_BY_ID_URL = `${HOST}/gallery/image/`; // append imageId
 const GET_BLOG_POSTS_URL = `${HOST}/blog/posts`;
 const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
+const DELETE_IMAGE_URL = `${HOST}/admin/gallery/delete-image`;
 
 const useBackend = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean | string>(false);
 
-  const _sendRequest = useCallback(async (url, errorMessage) => {
-    setIsLoading(true);
-    setError(false);
+  const authState = useSelector((state: IStoreState) => state.auth);
 
-    let result;
+  const _sendRequest = useCallback(
+    async (url, errorMessage, requestConfig?) => {
+      setIsLoading(true);
+      setError(false);
 
-    try {
-      const response = await fetch(url);
-      result = JSON.parse(await response.json());
-    } catch (err) {
-      setError(errorMessage);
+      let result;
+
+      try {
+        // if requestConfig isn't set then GET request is sent
+        if (!requestConfig) {
+          const response = await fetch(url);
+          result = JSON.parse(await response.json());
+        } else {
+          const response = await fetch(url, requestConfig);
+          result = JSON.parse(await response.json());
+        }
+      } catch (err) {
+        setError(errorMessage);
+        setIsLoading(false);
+        return;
+      }
       setIsLoading(false);
-      return;
-    }
-    setIsLoading(false);
-    return result;
-  }, []);
+      return result;
+    },
+    []
+  );
 
   /*
   =======================
-  Get
+  Non-authenticated
   =======================
   */
 
@@ -115,6 +129,41 @@ const useBackend = () => {
     [_sendRequest]
   );
 
+  /*
+  =======================
+  Authenticated
+  =======================
+  */
+
+  const deleteImage = useCallback(
+    async (imageId) => {
+      const userId = authState.userId;
+      const accessToken = authState.accessToken;
+
+      if (!(userId && accessToken)) {
+        return; // should lead to error being shown
+      }
+
+      const requestConfig = {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer: ${accessToken}`,
+          UserId: userId,
+        },
+        body: JSON.stringify({ imageId: imageId }),
+      };
+
+      return _sendRequest(
+        DELETE_IMAGE_URL,
+        "Kunde inte ta bort bild.",
+        requestConfig
+      );
+    },
+    [authState, _sendRequest]
+  );
+
   return {
     getScrollingImages,
     getAllGalleryImages,
@@ -124,6 +173,7 @@ const useBackend = () => {
     getBlogPosts,
     getBlogPostsByMonth,
     getBlogPostById,
+    deleteImage,
     isLoading,
     error,
   };

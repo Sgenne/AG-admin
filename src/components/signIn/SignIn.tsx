@@ -1,3 +1,4 @@
+import { KeyboardEvent } from "react";
 import "../../css/SignIn.css";
 import Button from "../UI/Button";
 import Input from "../UI/Input";
@@ -21,6 +22,10 @@ const SignIn = ({
   message,
   hasError,
 }: ISignInProps) => {
+  const keyDownHandler = (event: KeyboardEvent) => {
+    if (event.key === "Enter") onSubmit();
+  };
+
   return (
     <div className="sign-in__page">
       {message && <div className="sign-in__message">{message}</div>}
@@ -34,6 +39,7 @@ const SignIn = ({
             value={emailValue}
             onChange={onEmailChange}
             error={hasError}
+            onKeyDown={keyDownHandler}
           />
         </div>
         <div className="sign-in__password">
@@ -45,6 +51,7 @@ const SignIn = ({
             value={passwordValue}
             onChange={onPasswordChange}
             error={hasError}
+            onKeyDown={keyDownHandler}
           />
         </div>
       </div>

@@ -25,9 +25,10 @@ export const signIn = createAsyncThunk(
 
       return {
         isSignedIn: true,
-        accessToken: data.accessToken,
+        accessToken: data.user.accessToken,
         email: email,
         password: password,
+        userId: data.user.userId,
       };
     }
     // if sign in failed due to incorrect email or password
@@ -50,6 +51,7 @@ export interface IAuthState {
   accessToken: string;
   email: string;
   password: string;
+  userId: string;
   invalidEmailOrPassword: boolean;
 }
 
@@ -58,17 +60,14 @@ const _initialState = {
   accessToken: "",
   email: "",
   password: "",
+  userId: "",
   invalidEmailOrPassword: false,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState: _initialState,
-  reducers: {
-    signOut: (state, action) => {
-      return _initialState;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     // executed when signIn middleware has finished
     builder.addCase(signIn.fulfilled, (state, action) => {
@@ -80,6 +79,7 @@ const authSlice = createSlice({
         accessToken: payload.accessToken,
         email: payload.email || "",
         password: payload.password || "",
+        userId: payload.userId,
         invalidEmailOrPassword: payload.invalidEmailOrPassword || false,
       };
     });
