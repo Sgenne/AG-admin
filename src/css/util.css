@@ -22,6 +22,10 @@ flex
   justify-content: center;
 }
 
+.jc-end {
+  justify-content: end;
+}
+
 .jc-space-between {
   justify-content: space-between;
 }

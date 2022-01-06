@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
+import { IImage } from "../interfaces/image";
 import { IStoreState } from "../store/store";
 
 const HOST = "http://localhost:8080";
@@ -11,6 +12,7 @@ const GET_IMAGE_BY_ID_URL = `${HOST}/gallery/image/`; // append imageId
 const GET_BLOG_POSTS_URL = `${HOST}/blog/posts`;
 const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
 const DELETE_IMAGE_URL = `${HOST}/admin/gallery/delete-image`;
+const UPLOAD_IMAGE_URL = `${HOST}/admin/gallery/upload-image`;
 
 const useBackend = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -135,6 +137,34 @@ const useBackend = () => {
   =======================
   */
 
+  const uploadImage = useCallback(
+    async (image: File, category: string) => {
+      const userId = authState.userId;
+      const accessToken = authState.accessToken;
+
+      if (!(userId && accessToken)) {
+        throw new Error("User is not logged in");
+      }
+
+      const requestConfig = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer: ${accessToken}`,
+          UserId: userId,
+        },
+        body: JSON.stringify({ image: image, category: category }),
+      };
+      _sendRequest(
+        UPLOAD_IMAGE_URL,
+        "Kunde inte lägga till bild.",
+        requestConfig
+      );
+    },
+    [_sendRequest, authState]
+  );
+
   const deleteImage = useCallback(
     async (imageId) => {
       const userId = authState.userId;
@@ -174,6 +204,7 @@ const useBackend = () => {
     getBlogPostsByMonth,
     getBlogPostById,
     deleteImage,
+    uploadImage,
     isLoading,
     error,
   };

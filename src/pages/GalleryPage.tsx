@@ -21,11 +21,21 @@ const GalleryPage = () => {
     fetchImages();
   }, [getAllGalleryImages]);
 
-  const imageClickHandler = (image: IImage): void => {
+  const imageClickHandler = (image: IImage) => {
     navigate(`/bilder/${image._id}`);
   };
 
-  return <Gallery images={images} onImageClick={imageClickHandler} />;
+  const newImageButtonHandler = () => {
+    navigate("/ny-bild");
+  };
+
+  return (
+    <Gallery
+      images={images}
+      onImageClick={imageClickHandler}
+      onNewImageButtonClicked={newImageButtonHandler}
+    />
+  );
 };
 
 export default GalleryPage;
