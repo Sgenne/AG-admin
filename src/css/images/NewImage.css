@@ -1,0 +1,9 @@
+.new-image__options {
+  padding: 1rem;
+  width: 20%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}

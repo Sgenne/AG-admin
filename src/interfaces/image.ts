@@ -9,4 +9,5 @@ export interface IImage {
 export interface IImageCategory {
   _id: string;
   title: string;
+  previewImage: string;
 }

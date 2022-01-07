@@ -1,18 +1,21 @@
 import { useState, useEffect } from "react";
 import NewImage from "../components/images/NewImage";
 import useBackend from "../hooks/useBackend";
+import { IImageCategory } from "../interfaces/image";
 
 const NewImagePage = () => {
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [chosenCategory, setChosenCategory] = useState<string>();
   const [chosenImage, setChosenImage] = useState<File>();
 
-  const { getGalleryCategories } = useBackend();
+  const { getGalleryCategories, uploadImage } = useBackend();
 
   useEffect(() => {
     const fetchCategories = async () => {
       const result = await getGalleryCategories();
-      setAvailableCategories(result.categories);
+      setAvailableCategories(
+        result.categories.map((category: IImageCategory) => category.title)
+      );
     };
     fetchCategories();
   }, [getGalleryCategories]);
@@ -28,7 +31,7 @@ const NewImagePage = () => {
   const submitHandler = () => {
     if (!(chosenCategory && chosenImage)) return; // should also disable button if this is true
 
-    // uploadImage()
+    uploadImage(chosenImage, chosenCategory);
   };
 
   return (

@@ -146,15 +146,17 @@ const useBackend = () => {
         throw new Error("User is not logged in");
       }
 
+      const data = new FormData();
+      data.append("image", image);
+      data.append("category", category);
+
       const requestConfig = {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
           Authorization: `Bearer: ${accessToken}`,
           UserId: userId,
         },
-        body: JSON.stringify({ image: image, category: category }),
+        body: data,
       };
       _sendRequest(
         UPLOAD_IMAGE_URL,

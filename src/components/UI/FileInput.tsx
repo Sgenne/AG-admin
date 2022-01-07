@@ -5,9 +5,10 @@ import Button from "./Button";
 
 interface IFileInputProps {
   onFileChange: (file: File) => void;
+  children: string;
 }
 
-const FileInput = ({ onFileChange }: IFileInputProps) => {
+const FileInput = ({ onFileChange, children }: IFileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const uploadButtonHandler = () => {
@@ -31,7 +32,7 @@ const FileInput = ({ onFileChange }: IFileInputProps) => {
         ref={inputRef}
         onChange={fileChangeHandler}
       />
-      <Button onClick={uploadButtonHandler}>Ladda upp bild</Button>
+      <Button onClick={uploadButtonHandler}>{children}</Button>
     </span>
   );
 };

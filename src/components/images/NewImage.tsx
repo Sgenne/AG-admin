@@ -1,4 +1,5 @@
 import "../../css/images/NewImage.css";
+import Button from "../UI/Button";
 import FileInput from "../UI/FileInput";
 import Select from "../UI/Select";
 
@@ -17,11 +18,14 @@ const NewImage = ({
 }: NewImageProps) => {
   return (
     <div className="new-image__page">
-      <div className="new-image__category-select">
-        <Select options={categories} onChange={onCategoryChange} />
-      </div>
-      <div className="new-image__file-input">
-        <FileInput onFileChange={onFileChange} />
+      <div className="new-image__options">
+        <FileInput onFileChange={onFileChange}>Välj bild</FileInput>
+        <Select
+          label="Välj kategori"
+          options={categories}
+          onChange={onCategoryChange}
+        />
+        <Button onClick={onSubmit}>Lägg till bild</Button>
       </div>
     </div>
   );
