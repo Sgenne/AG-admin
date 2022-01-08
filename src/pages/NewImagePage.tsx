@@ -31,13 +31,15 @@ const NewImagePage = () => {
     setChosenImage(file);
   };
 
+  const disableSubmit = !(chosenCategory && chosenImage);
+
   const submitHandler = () => {
     const userId = authState.userId;
     const accessToken = authState.accessToken;
 
     if (!(userId && accessToken)) return;
 
-    if (!(chosenCategory && chosenImage)) return; // should also disable button if this is true
+    if (disableSubmit) return;
 
     uploadImage(chosenImage, chosenCategory, userId, accessToken);
   };
@@ -48,6 +50,7 @@ const NewImagePage = () => {
       categories={availableCategories}
       onFileChange={fileChangeHandler}
       onSubmit={submitHandler}
+      disableSubmit={disableSubmit}
     />
   );
 };

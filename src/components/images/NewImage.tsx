@@ -8,6 +8,7 @@ interface NewImageProps {
   onCategoryChange: (newValue: string) => void;
   onFileChange: (file: File) => void;
   onSubmit: () => void;
+  disableSubmit: boolean;
 }
 
 const NewImage = ({
@@ -15,6 +16,7 @@ const NewImage = ({
   onCategoryChange,
   onFileChange,
   onSubmit,
+  disableSubmit,
 }: NewImageProps) => {
   return (
     <div className="new-image__page">
@@ -25,7 +27,9 @@ const NewImage = ({
           options={categories}
           onChange={onCategoryChange}
         />
-        <Button onClick={onSubmit}>Lägg till bild</Button>
+        <Button onClick={onSubmit} disabled={disableSubmit}>
+          Lägg till bild
+        </Button>
       </div>
     </div>
   );

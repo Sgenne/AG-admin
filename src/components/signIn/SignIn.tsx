@@ -40,6 +40,7 @@ const SignIn = ({
             onChange={onEmailChange}
             error={hasError}
             onKeyDown={keyDownHandler}
+            autoFocus
           />
         </div>
         <div className="sign-in__password">

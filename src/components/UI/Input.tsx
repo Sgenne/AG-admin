@@ -9,6 +9,7 @@ interface IInputProps {
   id?: string;
   error?: boolean;
   onKeyDown?: (event: KeyboardEvent) => void;
+  autoFocus?: boolean;
 }
 
 const Input = ({
@@ -19,6 +20,7 @@ const Input = ({
   id,
   error = false,
   onKeyDown,
+  autoFocus,
 }: IInputProps) => {
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange(event.target.value);
@@ -33,6 +35,7 @@ const Input = ({
       onChange={changeHandler}
       id={id}
       onKeyDown={onKeyDown}
+      autoFocus={autoFocus}
     />
   );
 };

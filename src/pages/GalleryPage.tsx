@@ -3,10 +3,19 @@ import { useState, useEffect } from "react";
 import Gallery from "../components/Gallery";
 
 import { getAllGalleryImages } from "../utils/backendUtils";
-import { IImage } from "../interfaces/image";
+import { IImage, IImageCategory } from "../interfaces/image";
 
 const GalleryPage = () => {
-  const [images, setImages] = useState<[IImage]>();
+  // The displayed images.
+  const [images, setImages] = useState<IImage[]>([]);
+
+  // The categories the user can filter the images by.
+  const [availableCategories, setAvailableCategories] = useState<string[]>([]);
+
+  // The currently chosen category. The images will only be filtered if the
+  // category is in availableCategories.
+  const [chosenCategory, setChosenCategory] = useState<string>("");
+
   const navigate = useNavigate();
 
   // fetch images from backend when page is loaded
@@ -14,23 +23,52 @@ const GalleryPage = () => {
     const fetchImages = async () => {
       const result = await getAllGalleryImages();
       setImages(result.images);
+
+      // The available image categories.
+      const availableCategories: string[] = result.categories.map(
+        (category: IImageCategory) => category.title
+      );
+
+      setAvailableCategories(availableCategories);
     };
     fetchImages();
   }, []);
 
+  // Handles clicks on any of the displayed images.
   const imageClickHandler = (image: IImage) => {
     navigate(`/bilder/${image._id}`);
   };
 
+  // Handles clicks on the "new image" button.
   const newImageButtonHandler = () => {
     navigate("/ny-bild");
   };
 
+  // Handles a new image category being chosen.
+  const categoryChangeHandler = (newCategory: string) => {
+    if (!availableCategories.includes(newCategory)) {
+      setChosenCategory("");
+      return;
+    }
+
+    setChosenCategory(newCategory);
+  };
+
+  // If a category has been chosen, only show the images from that category.
+  const filteredImages = chosenCategory
+    ? images.filter((image) => image.category === chosenCategory.toLowerCase())
+    : images;
+
+  // The list of category options that will be given to the user.
+  const categoryOptions = availableCategories.concat("Alla kategorier");
+
   return (
     <Gallery
-      images={images}
+      images={filteredImages}
       onImageClick={imageClickHandler}
       onNewImageButtonClicked={newImageButtonHandler}
+      availableCategories={categoryOptions}
+      onCategoryChange={categoryChangeHandler}
     />
   );
 };
