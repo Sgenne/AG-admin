@@ -21,7 +21,7 @@ export const signIn = createAsyncThunk(
 
     // if user was succesfully logged in
     if (response.status === 200) {
-      const data = JSON.parse(await response.json());
+      const data = await response.json();
 
       return {
         isSignedIn: true,

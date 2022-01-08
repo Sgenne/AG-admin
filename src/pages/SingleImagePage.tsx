@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import { IImage, IImageCategory } from "../interfaces/image";
-import useBackend from "../hooks/useBackend";
+import { IImage } from "../interfaces/image";
 import SingleImage from "../components/images/SingleImage";
+import { getImageById, deleteImage } from "../utils/backendUtils";
+import { useSelector } from "react-redux";
+import { IStoreState } from "../store/store";
 
 const SingleImagePage = () => {
   const [image, setImage] = useState<IImage>();
 
-  const { getImageById, getGalleryCategories, deleteImage } = useBackend();
+  const authState = useSelector((state: IStoreState) => state.auth);
 
   const { imageId } = useParams();
 
@@ -21,15 +23,18 @@ const SingleImagePage = () => {
     };
 
     fetchImage();
-  }, [imageId, getImageById, getGalleryCategories]);
+  }, [imageId]);
 
   const deleteImageHandler = () => {
     const sendRequest = async () => {
+      const userId = authState.userId;
+      const accessToken = authState.accessToken;
+
+      if (!(userId && accessToken)) return;
+
       if (!imageId) return;
 
-      const result = await deleteImage(imageId);
-
-      console.log(result);
+      await deleteImage(imageId, userId, accessToken);
     };
     sendRequest();
   };
