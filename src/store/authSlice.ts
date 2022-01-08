@@ -10,14 +10,21 @@ export const signIn = createAsyncThunk(
       password: password,
     });
 
-    const response = await fetch(SIGN_IN_URL, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: body,
-    });
+    let response: Response;
+    try {
+      response = await fetch(SIGN_IN_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: body,
+      });
+    } catch (err) {
+      return {
+        isSignedIn: false,
+      };
+    }
 
     // if user was succesfully logged in
     if (response.status === 200) {

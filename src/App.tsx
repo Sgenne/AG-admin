@@ -4,12 +4,17 @@ import SideMenu from "./components/sideMenu/SideMenu";
 import Routes, { SignInRoute } from "./Routes";
 import { IStoreState } from "./store/store";
 import { useSelector } from "react-redux";
+import ErrorBoundary from "./ErrorBoundary";
 
 function App() {
   const isSignedIn = useSelector((state: IStoreState) => state.auth.isSignedIn);
 
   if (!isSignedIn) {
-    return <SignInRoute />;
+    return (
+      <ErrorBoundary>
+        <SignInRoute />
+      </ErrorBoundary>
+    );
   }
 
   return (
@@ -18,7 +23,9 @@ function App() {
         <SideMenu />
       </div>
       <div className="content-container">
-        <Routes />
+        <ErrorBoundary>
+          <Routes />
+        </ErrorBoundary>
       </div>
     </>
   );
