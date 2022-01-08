@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useRef } from "react";
+import { ChangeEventHandler, useRef, useState } from "react";
 
 import "../../css/UI/FileInput.css";
 import Button from "./Button";
@@ -10,6 +10,7 @@ interface IFileInputProps {
 
 const FileInput = ({ onFileChange, children }: IFileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [label, setLabel] = useState<string>();
 
   const uploadButtonHandler = () => {
     if (!inputRef || !inputRef.current) return;
@@ -18,9 +19,13 @@ const FileInput = ({ onFileChange, children }: IFileInputProps) => {
   };
 
   const fileChangeHandler: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (!event.target.files) return;
+    if (!event.target.files) {
+      setLabel(undefined);
+      return;
+    }
 
-    const chosenFile = event.target.files[0];
+    const chosenFile: File = event.target.files[0];
+    setLabel(chosenFile.name);
     onFileChange(chosenFile);
   };
 
@@ -33,6 +38,7 @@ const FileInput = ({ onFileChange, children }: IFileInputProps) => {
         onChange={fileChangeHandler}
       />
       <Button onClick={uploadButtonHandler}>{children}</Button>
+      {label ? <span className="file-input__label">{label}</span> : <></>}
     </span>
   );
 };
