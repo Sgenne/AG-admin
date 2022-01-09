@@ -1,0 +1,11 @@
+.message-popup {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.message-popup--error {
+  background-color: salmon;
+}

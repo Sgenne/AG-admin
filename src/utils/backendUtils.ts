@@ -11,16 +11,16 @@ const UPLOAD_IMAGE_URL = `${HOST}/admin/gallery/upload-image`;
 
 const _sendRequest = async (url: string, requestConfig?: {}) => {
   let result;
+  let response;
 
   // if requestConfig isn't set then GET request is sent
   if (!requestConfig) {
-    const response = await fetch(url);
-    result = await response.json();
+    response = await fetch(url);
   } else {
-    console.log("requestConfig: ", requestConfig);
-    const response = await fetch(url, requestConfig);
-    result = await response.json();
+    response = await fetch(url, requestConfig);
   }
+  result = await response.json();
+  result.status = response.status;
 
   return result;
 };
@@ -104,7 +104,7 @@ export const uploadImage = async (
     },
     body: data,
   };
-  _sendRequest(UPLOAD_IMAGE_URL, requestConfig);
+  return _sendRequest(UPLOAD_IMAGE_URL, requestConfig);
 };
 
 export const deleteImage = async (

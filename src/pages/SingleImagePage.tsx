@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { IImage } from "../interfaces/image";
@@ -9,12 +9,13 @@ import { IStoreState } from "../store/store";
 
 const SingleImagePage = () => {
   const [image, setImage] = useState<IImage>();
-
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
   const authState = useSelector((state: IStoreState) => state.auth);
-
   const { imageId } = useParams();
+  const navigate = useNavigate();
 
-  // fetch image when page is loaded
+  // Fetch image when page is loaded.
   useEffect(() => {
     const fetchImage = async () => {
       if (!imageId) return;
@@ -34,12 +35,29 @@ const SingleImagePage = () => {
 
       if (!imageId) return;
 
-      await deleteImage(imageId, userId, accessToken);
+      const result = await deleteImage(imageId, userId, accessToken);
+
+      // If the image was deleted successfully, then the user is
+      // redirected to the gallery.
+      if (result.status === 200) {
+        navigate("/bilder");
+      }
+
+      // If the image could not be deleted, then an error is shown.
+      setHasError(true);
+      setMessage(result.message);
     };
     sendRequest();
   };
 
-  return <SingleImage image={image} onDeleteImage={deleteImageHandler} />;
+  return (
+    <SingleImage
+      image={image}
+      onDeleteImage={deleteImageHandler}
+      hasError={hasError}
+      message={message}
+    />
+  );
 };
 
 export default SingleImagePage;

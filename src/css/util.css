@@ -48,6 +48,10 @@ colors
   background-color: #f2f2f2;
 }
 
+.background-salmon {
+  background-color: salmon;
+}
+
 .salmon-hover:hover {
   background-color: salmon;
 }
