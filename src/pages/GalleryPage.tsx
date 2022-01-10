@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Gallery from "../components/Gallery";
+import Gallery from "../components/images/Gallery";
 
 import { getAllGalleryImages } from "../utils/backendUtils";
 import { IImage, IImageCategory } from "../interfaces/image";

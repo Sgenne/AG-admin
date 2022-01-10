@@ -1,8 +1,8 @@
-import "../css/Gallery.css";
-import { IImage } from "../interfaces/image";
-import ImageOverview from "./images/ImageOverview";
-import Button from "./UI/Button";
-import Select from "./UI/Select";
+import "../../css/images/Gallery.css";
+import { IImage } from "../../interfaces/image";
+import ImageOverview from "./ImageOverview";
+import Button from "./../UI/Button";
+import Select from "./../UI/Select";
 
 interface IGalleryProps {
   images: IImage[] | undefined;
