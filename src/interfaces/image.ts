@@ -6,6 +6,16 @@ export interface IImage {
   createdAt: Date | string;
 }
 
+export interface IPreviewImage extends IImage {
+  highlight?: boolean;
+  text?: string;
+}
+
+export interface IScrollingImage {
+  _id: string;
+  image: IImage;
+}
+
 export interface IImageCategory {
   _id: string;
   title: string;

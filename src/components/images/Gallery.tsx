@@ -5,8 +5,8 @@ import Button from "./../UI/Button";
 import Select from "./../UI/Select";
 
 interface IGalleryProps {
-  images: IImage[] | undefined;
-  onImageClick: (image: IImage) => void;
+  images: IImage[];
+  onImageClicked: (image: IImage) => void;
   onNewImageButtonClicked: () => void;
   availableCategories: string[];
   onCategoryChange: (newCategory: string) => void;
@@ -14,7 +14,7 @@ interface IGalleryProps {
 
 const Gallery = ({
   images,
-  onImageClick,
+  onImageClicked,
   onNewImageButtonClicked,
   availableCategories,
   onCategoryChange,
@@ -34,7 +34,7 @@ const Gallery = ({
         </div>
       </div>
 
-      <ImageOverview images={images} onImageClick={onImageClick} />
+      <ImageOverview images={images} onImageClicked={onImageClicked} />
     </div>
   );
 };

@@ -65,7 +65,7 @@ const GalleryPage = () => {
   return (
     <Gallery
       images={filteredImages}
-      onImageClick={imageClickHandler}
+      onImageClicked={imageClickHandler}
       onNewImageButtonClicked={newImageButtonHandler}
       availableCategories={categoryOptions}
       onCategoryChange={categoryChangeHandler}

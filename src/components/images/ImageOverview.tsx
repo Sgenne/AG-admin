@@ -1,23 +1,20 @@
 import "../../css/images/ImageOverview.css";
-import { IImage } from "../../interfaces/image";
+import { IPreviewImage } from "../../interfaces/image";
+import PreviewImage from "./PreviewImage";
 
 interface IImageOverviewProps {
-  images: IImage[] | undefined;
-  onImageClick: (image: IImage) => void;
+  images: IPreviewImage[];
+  onImageClicked: (image: IPreviewImage) => void;
 }
 
-const ImageOverview = ({ images, onImageClick }: IImageOverviewProps) => {
-  if (!images) {
-    return <></>;
-  }
-
+const ImageOverview = ({ images, onImageClicked }: IImageOverviewProps) => {
   const imageContent = images.map((image) => (
     <span className="image-overview__image-container" key={image._id}>
-      <img
-        className="image-overview__image"
+      <PreviewImage
         src={image.compressedImageUrl}
-        alt=""
-        onClick={() => onImageClick(image)}
+        onClick={() => onImageClicked(image)}
+        greenBorder={image.highlight}
+        coverText={image.text}
       />
     </span>
   ));
