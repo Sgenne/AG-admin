@@ -14,6 +14,7 @@ export interface IPreviewImage extends IImage {
 export interface IScrollingImage {
   _id: string;
   image: IImage;
+  order: number;
 }
 
 export interface IImageCategory {

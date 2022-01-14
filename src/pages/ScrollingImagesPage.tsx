@@ -17,6 +17,12 @@ const ScrollingImagesPage = () => {
   // The ids of the current scrolling images.
   const [scrollingImageIds, setScrollingImageIds] = useState<string[]>([]);
 
+  // Indicates whether the scrolling images were updated successfully.
+  const [successfullyUpdated, setSuccessfullyUpdated] = useState(false);
+
+  // Message displayed to the user.
+  const [message, setMessage] = useState("");
+
   // The user-id and access-token of the signed in user.
   const { userId, accessToken } = useSelector(
     (state: IStoreState) => state.auth
@@ -32,10 +38,13 @@ const ScrollingImagesPage = () => {
       ]);
 
       // Ids of the already scrolling images.
-      const currentScrollingImageIds =
-        currentScrollingImages.scrollingImages.map(
-          (scrollingImage: IScrollingImage) => scrollingImage.image._id
-        );
+      const currentScrollingImageIds = currentScrollingImages.scrollingImages
+        // Sort by order of appearance.
+        .sort((a: IScrollingImage, b: IScrollingImage) =>
+          b.order < a.order ? 1 : -1
+        )
+        // Only keep ids.
+        .map((scrollingImage: IScrollingImage) => scrollingImage.image._id);
 
       // All images. The current scrolling images have highlight: true,
       // to indicate that they should have green borders.
@@ -91,8 +100,23 @@ const ScrollingImagesPage = () => {
   };
 
   // Sends the new list of scrolling images to the backend.
-  const submitChangesHandler = () => {
-    replaceScrollingImages(scrollingImageIds, userId, accessToken);
+  const submitChangesHandler = async () => {
+    const result = await replaceScrollingImages(
+      scrollingImageIds,
+      userId,
+      accessToken
+    );
+
+    // Show success popup if the images were successfully replaced.
+    if (result.status === 200) {
+      setSuccessfullyUpdated(true);
+      setMessage("Framsidan har uppdaterats!");
+    }
+    // Show error page if the update failed.
+    else {
+      const error = new Error(result.message);
+      throw error;
+    }
   };
 
   // The images that will be shown in the ScrollingImages component.
@@ -106,6 +130,8 @@ const ScrollingImagesPage = () => {
       images={displayedImages}
       onImageClicked={imageClickedHandler}
       onSubmitChanges={submitChangesHandler}
+      successfullyUpdated={successfullyUpdated}
+      message={message}
     />
   );
 };

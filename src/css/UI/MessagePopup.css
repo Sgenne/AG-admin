@@ -1,4 +1,5 @@
 .message-popup {
+  padding: 0.4rem;
   font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
@@ -8,4 +9,8 @@
 
 .message-popup--error {
   background-color: salmon;
+}
+
+.message-popup--success {
+  background-color: #00c500;
 }
