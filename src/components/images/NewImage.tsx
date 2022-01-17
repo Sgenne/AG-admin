@@ -23,6 +23,11 @@ const NewImage = ({
   hasError,
   message,
 }: NewImageProps) => {
+  const categoryOptions = categories.map((category) => ({
+    text: category,
+    value: category,
+  }));
+
   return (
     <div className="new-image__page">
       <MessagePopup message={message} error={hasError} />
@@ -30,7 +35,7 @@ const NewImage = ({
         <FileInput onFileChange={onFileChange}>Välj bild</FileInput>
         <Select
           label="Välj kategori"
-          options={categories}
+          options={categoryOptions}
           onChange={onCategoryChange}
         />
         <Button onClick={onSubmit} disabled={disableSubmit}>

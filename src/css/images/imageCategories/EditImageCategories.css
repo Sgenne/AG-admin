@@ -1,0 +1,9 @@
+.edit-image-categories__current-categories {
+  width: 45%;
+  list-style: none;
+}
+
+.edit-image-categories__category-item {
+  height: 15vh;
+  margin: 1rem;
+}

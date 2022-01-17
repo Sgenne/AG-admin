@@ -1,8 +1,13 @@
 import { ChangeEvent } from "react";
 import "../../css/UI/Select.css";
 
+interface IOption {
+  text: string;
+  value: string;
+}
+
 interface ISelectProps {
-  options: string[];
+  options: IOption[];
   onChange: (currentValue: string) => void;
   label?: string;
 }
@@ -16,8 +21,8 @@ const Select = ({ options, onChange, label }: ISelectProps) => {
   };
 
   const displayedOptions = options.map((option) => (
-    <option value={option} key={option}>
-      {option}
+    <option value={option.value} key={option.text}>
+      {option.text}
     </option>
   ));
 

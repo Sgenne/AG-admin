@@ -1,0 +1,16 @@
+.image-category-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  border: 2px solid grey;
+  border-radius: 15px;
+}
+
+.image-category-item__current-image {
+  height: 80%;
+}
+
+.image-category-item__current-image img {
+  height: 100%;
+}

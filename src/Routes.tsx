@@ -1,4 +1,5 @@
 import { Route, Routes as Switch } from "react-router-dom";
+import EditImageCategoriesPage from "./pages/EditImageCategoriesPage";
 
 import GalleryPage from "./pages/GalleryPage";
 import NewImagePage from "./pages/NewImagePage";
@@ -19,6 +20,10 @@ const Routes = () => {
       <Route path="/bilder" element={<GalleryPage />} />
       <Route path="/bilder/:imageId" element={<SingleImagePage />} />
       <Route path="/ny-bild" element={<NewImagePage />} />
+      <Route
+        path="/bilder/redigera-kategorier"
+        element={<EditImageCategoriesPage />}
+      />
     </Switch>
   );
 };

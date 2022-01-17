@@ -19,13 +19,18 @@ const Gallery = ({
   availableCategories,
   onCategoryChange,
 }: IGalleryProps) => {
+  const categoryOptions = availableCategories.map((category) => ({
+    text: category,
+    value: category,
+  }));
+
   return (
     <div className="gallery">
       <div className="gallery__control">
         <div className="gallery__control__filter">
           <Select
             label="Välj kategori"
-            options={availableCategories}
+            options={categoryOptions}
             onChange={onCategoryChange}
           />
         </div>

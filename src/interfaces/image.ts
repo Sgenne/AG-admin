@@ -4,6 +4,7 @@ export interface IImage {
   compressedImageUrl: string;
   category: string;
   createdAt: Date | string;
+  alt?: string;
 }
 
 export interface IPreviewImage extends IImage {
