@@ -5,12 +5,26 @@
   height: 100%;
   border: 2px solid grey;
   border-radius: 15px;
+  overflow: hidden;
 }
 
 .image-category-item__current-image {
   height: 80%;
+  width: fit-content;
 }
 
 .image-category-item__current-image img {
   height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-category-item__middle {
+  text-align: center;
+  width: 28%;
+  overflow: hidden;
+}
+
+.image-category-item__submit-button {
+  width: 30%;
 }

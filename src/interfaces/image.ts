@@ -1,5 +1,6 @@
 export interface IImage {
   _id: string;
+  filename: string;
   imageUrl: string;
   compressedImageUrl: string;
   category: string;

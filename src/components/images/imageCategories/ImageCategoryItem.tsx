@@ -31,7 +31,7 @@ const ImageCategoryItem = ({
   };
 
   const dropdownOptions = images.map((image) => ({
-    text: image.imageUrl,
+    text: image.filename,
     value: image._id,
   }));
 
@@ -47,18 +47,24 @@ const ImageCategoryItem = ({
       ) : (
         <></>
       )}
-      <h2>{category.title}</h2>
-      <Select
-        options={dropdownOptions}
-        onChange={selectedPreviewImageChangeHandler}
-        label="Välj exempelbild"
-      />
-      <Button
-        disabled={!selectedPreviewImageId}
-        onClick={submitPreviewImageHandler}
-      >
-        Uppdatera exempelbild
-      </Button>
+
+      <span className="image-category-item__middle">
+        <h2>{category.title}</h2>
+        <Select
+          options={dropdownOptions}
+          onChange={selectedPreviewImageChangeHandler}
+          label="Välj exempelbild"
+        />
+      </span>
+
+      <span className="image-category-item__submit-button">
+        <Button
+          disabled={!selectedPreviewImageId}
+          onClick={submitPreviewImageHandler}
+        >
+          Uppdatera exempelbild
+        </Button>
+      </span>
     </div>
   );
 };

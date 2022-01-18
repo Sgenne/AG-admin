@@ -185,6 +185,7 @@ export const setImageCategoryPreviewImage = (
     },
     body: JSON.stringify({
       previewImageId: previewImageId,
+      categoryId: categoryId,
     }),
   };
 
