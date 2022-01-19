@@ -25,6 +25,12 @@
   overflow: hidden;
 }
 
-.image-category-item__submit-button {
-  width: 30%;
+.image-category-item__buttons {
+  max-width: 30%;
+  height: 80%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }

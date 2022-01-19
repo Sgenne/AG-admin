@@ -10,6 +10,7 @@ interface IGalleryProps {
   onNewImageButtonClicked: () => void;
   availableCategories: string[];
   onCategoryChange: (newCategory: string) => void;
+  onEditCategoriesButtonClicked: () => void;
 }
 
 const Gallery = ({
@@ -18,6 +19,7 @@ const Gallery = ({
   onNewImageButtonClicked,
   availableCategories,
   onCategoryChange,
+  onEditCategoriesButtonClicked,
 }: IGalleryProps) => {
   const categoryOptions = availableCategories.map((category) => ({
     text: category,
@@ -36,6 +38,9 @@ const Gallery = ({
         </div>
         <div className="gallery__control__edit">
           <Button onClick={onNewImageButtonClicked}>Ny bild</Button>
+          <Button onClick={onEditCategoriesButtonClicked}>
+            Redigera kategorier
+          </Button>
         </div>
       </div>
 

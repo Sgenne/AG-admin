@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import EditImageCategories from "../components/images/imageCategories/EditImageCategories";
 import { IImage, IImageCategory } from "../interfaces/image";
 import { IStoreState } from "../store/store";
 import {
   addImageCategory,
+  deleteImageCategory,
   getAllGalleryImages,
   setImageCategoryPreviewImage,
 } from "../utils/backendUtils";
+import { errorStatusCode } from "../utils/utils";
 
 const EditImageCategoriesPage = () => {
   // The image categories at the time of loading the page.
@@ -22,26 +23,28 @@ const EditImageCategoriesPage = () => {
 
   // The currently entered new category title.
   const [newCategoryTitle, setNewCategoryTitle] = useState("");
+  const [error, setError] = useState<Error>();
 
   const { userId, accessToken } = useSelector(
     (state: IStoreState) => state.auth
   );
 
-  const navigate = useNavigate();
-
   if (!(userId && accessToken))
     throw new Error("Invalid user-id and access-token.");
+
+  if (error) {
+    throw error;
+  }
 
   // Fetch image categories from backend when page is loaded.
   useEffect(() => {
     const fetchCategories = async () => {
       const result = await getAllGalleryImages();
-      if (result.status !== 200) {
+      if (errorStatusCode(result.status)) {
         const error = new Error(result.message);
         throw error;
       }
 
-      console.log("result: ", result.images);
       setCurrentCategories(result.categories);
       setImages(result.images);
     };
@@ -62,11 +65,14 @@ const EditImageCategoriesPage = () => {
       accessToken
     );
 
-    if (result.status !== 200) {
-      throw new Error(result.message);
+    if (errorStatusCode(result.status)) {
+      setError(new Error(result.message));
     }
 
-    navigate("/bilder");
+    setCurrentCategories((prevCategories) => [
+      ...prevCategories,
+      result.category,
+    ]);
   };
 
   // Handler for when the user types into the category title input.
@@ -89,16 +95,38 @@ const EditImageCategoriesPage = () => {
       accessToken
     );
 
-    if (result.status !== 200) {
-      throw new Error(result.message);
+    if (errorStatusCode(result.status)) {
+      setError(new Error(result.message));
     }
+
+    // EditImageCategories component doesn't expect previewImage to be
+    // populated. Only to contain the id of the previewImage.
+    const updatedCategory = {
+      ...result.category,
+      previewImage: result.category.previewImage._id,
+    };
 
     // Replace the category object of the affected category with a new object containing the
     // new preview image.
     setCurrentCategories((prevCategories) =>
       prevCategories.map((category) =>
-        category._id === categoryId ? result.category : category
+        category._id === categoryId ? updatedCategory : category
       )
+    );
+  };
+
+  const deleteCategoryHandler = async (categoryId: string) => {
+    const result: { status: number; message: string } =
+      await deleteImageCategory(categoryId, userId, accessToken);
+
+    if (errorStatusCode(result.status)) {
+      setError(new Error(result.message));
+    }
+
+    // Remove the category that was deleted from the backend from
+    // the displayed categories.
+    setCurrentCategories((prevCategories) =>
+      prevCategories.filter((category) => category._id !== categoryId)
     );
   };
 
@@ -110,6 +138,7 @@ const EditImageCategoriesPage = () => {
       onNewCategoryTitleChange={newCategoryTitleChangeHandler}
       onCategoryPreviewImageSubmit={categoryPreviewImageChangeHandler}
       newCategoryTitle={newCategoryTitle}
+      onDeleteCategory={deleteCategoryHandler}
     />
   );
 };

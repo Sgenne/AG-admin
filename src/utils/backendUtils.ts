@@ -9,7 +9,8 @@ const GET_BLOG_POST_BY_ID_URL = `${HOST}/blog/post/`; // append id
 const DELETE_IMAGE_URL = `${HOST}/admin/gallery/delete-image`;
 const UPLOAD_IMAGE_URL = `${HOST}/admin/gallery/upload-image`;
 const REPLACE_SCROLLING_IMAGES_URL = `${HOST}/admin/gallery/replace-scrolling-images`;
-const ADD_IMAGE_CATEGORY_URL = `${HOST}/admin/gallery/new-image-category`;
+const ADD_IMAGE_CATEGORY_URL = `${HOST}/admin/gallery/new-category`;
+const DELETE_IMAGE_CATEGORY_URL = `${HOST}/admin/gallery/delete-category`;
 const SET_IMAGE_CATEGORY_PREVIEW_IMAGE_URL = `${HOST}/admin/gallery/set-category-preview-image`;
 
 const _sendRequest = async (url: string, requestConfig?: {}) => {
@@ -167,6 +168,27 @@ export const addImageCategory = (
   };
 
   return _sendRequest(ADD_IMAGE_CATEGORY_URL, requestConfig);
+};
+
+export const deleteImageCategory = (
+  categoryId: string,
+  userId: string,
+  accessToken: string
+) => {
+  const requestConfig = {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer: ${accessToken}`,
+      UserId: userId,
+    },
+    body: JSON.stringify({
+      categoryId: categoryId,
+    }),
+  };
+
+  return _sendRequest(DELETE_IMAGE_CATEGORY_URL, requestConfig);
 };
 
 export const setImageCategoryPreviewImage = (

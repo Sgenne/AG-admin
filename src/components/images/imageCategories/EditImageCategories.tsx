@@ -14,6 +14,7 @@ interface IEditImageCategoriesProps {
     categoryId: string,
     previewImageId: string
   ) => void;
+  onDeleteCategory: (categoryId: string) => void;
 }
 
 const EditImageCategories = (props: IEditImageCategoriesProps) => {
@@ -31,6 +32,7 @@ const EditImageCategories = (props: IEditImageCategoriesProps) => {
             image.category.toLowerCase() === category.title.toLowerCase()
         )}
         onPreviewImageSubmit={props.onCategoryPreviewImageSubmit}
+        onDelete={() => props.onDeleteCategory(category._id)}
       />
     </li>
   ));

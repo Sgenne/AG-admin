@@ -44,6 +44,10 @@ const GalleryPage = () => {
     navigate("/ny-bild");
   };
 
+  const editCategoriesButtonHandler = () => {
+    navigate("/bilder/redigera-kategorier");
+  };
+
   // Handles a new image category being chosen.
   const categoryChangeHandler = (newCategory: string) => {
     if (!availableCategories.includes(newCategory)) {
@@ -69,6 +73,7 @@ const GalleryPage = () => {
       onNewImageButtonClicked={newImageButtonHandler}
       availableCategories={categoryOptions}
       onCategoryChange={categoryChangeHandler}
+      onEditCategoriesButtonClicked={editCategoriesButtonHandler}
     />
   );
 };

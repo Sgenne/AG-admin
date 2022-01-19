@@ -9,6 +9,7 @@ interface IImageCategoryItemProps {
   category: IImageCategory;
   images: IImage[];
   onPreviewImageSubmit: (categoryId: string, newPreviewImageId: string) => void;
+  onDelete: () => void;
 }
 
 const ImageCategoryItem = ({
@@ -16,6 +17,7 @@ const ImageCategoryItem = ({
   category,
   images,
   onPreviewImageSubmit,
+  onDelete,
 }: IImageCategoryItemProps) => {
   const [selectedPreviewImageId, setSelectedPreviewImageId] =
     useState<string>("");
@@ -57,13 +59,14 @@ const ImageCategoryItem = ({
         />
       </span>
 
-      <span className="image-category-item__submit-button">
+      <span className="image-category-item__buttons">
         <Button
           disabled={!selectedPreviewImageId}
           onClick={submitPreviewImageHandler}
         >
           Uppdatera exempelbild
         </Button>
+        <Button onClick={onDelete}>Ta bort kategori</Button>
       </span>
     </div>
   );
