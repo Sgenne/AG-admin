@@ -29,14 +29,14 @@ const Gallery = ({
   return (
     <div className="gallery">
       <div className="gallery__control">
-        <div className="gallery__control__filter">
+        <div className="gallery__filter">
           <Select
             label="Välj kategori"
             options={categoryOptions}
             onChange={onCategoryChange}
           />
         </div>
-        <div className="gallery__control__edit">
+        <div className="gallery__edit">
           <Button onClick={onNewImageButtonClicked}>Ny bild</Button>
           <Button onClick={onEditCategoriesButtonClicked}>
             Redigera kategorier

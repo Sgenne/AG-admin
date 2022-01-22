@@ -6,3 +6,7 @@
   align-items: flex-start;
   justify-content: space-between;
 }
+
+.new-image__select {
+  width: 10%;
+}

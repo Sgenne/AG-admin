@@ -3,12 +3,16 @@
   padding: 1rem;
 }
 
-.gallery__control__filter {
-  width: 50%;
+.gallery__filter {
+  width: 30%;
 }
 
-.gallery__control__edit {
-  width: 50%;
+.gallery__edit {
+  width: 80%;
   display: flex;
   justify-content: flex-end;
+}
+
+.gallery__edit button {
+  margin-left: 0.6rem;
 }

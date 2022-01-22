@@ -6,6 +6,7 @@ import { getGalleryCategories, uploadImage } from "../utils/backendUtils";
 import { IImageCategory } from "../interfaces/image";
 import { IStoreState } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import { errorStatusCode } from "../utils/utils";
 
 const NewImagePage = () => {
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
@@ -60,9 +61,10 @@ const NewImagePage = () => {
     );
 
     // If the image could not be uploaded, then show an error.
-    if (result.status !== 200) {
+    if (errorStatusCode(result.status)) {
       setHasError(true);
       setMessage(result.message);
+      return;
     }
 
     // If the image was successfully uploaded, redirect to gallery.

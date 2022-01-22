@@ -55,7 +55,7 @@ export const getImageById = async (imageId: string) => {
   return _sendRequest(GET_IMAGE_BY_ID_URL + imageId);
 };
 
-export const getBlogPosts = async (requestQueries: {
+export const getBlogPosts = async (requestQueries?: {
   [key: string]: string;
 }) => {
   let url = GET_BLOG_POSTS_URL;

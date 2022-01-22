@@ -33,11 +33,14 @@ const NewImage = ({
       <MessagePopup message={message} error={hasError} />
       <div className="new-image__options">
         <FileInput onFileChange={onFileChange}>Välj bild</FileInput>
-        <Select
-          label="Välj kategori"
-          options={categoryOptions}
-          onChange={onCategoryChange}
-        />
+        <span className="new-image__select">
+          <Select
+            label="Välj kategori"
+            options={categoryOptions}
+            onChange={onCategoryChange}
+          />
+        </span>
+
         <Button onClick={onSubmit} disabled={disableSubmit}>
           Lägg till bild
         </Button>
