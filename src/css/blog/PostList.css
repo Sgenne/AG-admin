@@ -1,0 +1,10 @@
+.blog-post-list {
+  padding: 1%;
+  list-style: none;
+  width: 30%;
+  min-width: fit-content;
+}
+
+.blog-post-list__item-container {
+  margin-bottom: 1%;
+}
