@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import NewImage from "../components/images/NewImage";
-import { getGalleryCategories, uploadImage } from "../utils/backendUtils";
-import { IImageCategory } from "../interfaces/image";
-import { IStoreState } from "../store/store";
+import NewImage from "../../components/images/NewImage";
+import { getGalleryCategories, uploadImage } from "../../utils/backendUtils";
+import { IImageCategory } from "../../interfaces/image";
+import { IStoreState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
-import { errorStatusCode } from "../utils/utils";
+import { errorStatusCode } from "../../utils/utils";
 
 const NewImagePage = () => {
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);

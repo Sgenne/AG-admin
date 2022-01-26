@@ -1,12 +1,13 @@
 import { Route, Routes as Switch } from "react-router-dom";
-import EditImageCategoriesPage from "./pages/EditImageCategoriesPage";
+import EditImageCategoriesPage from "./pages/gallery/EditImageCategoriesPage";
 
-import GalleryPage from "./pages/GalleryPage";
-import NewImagePage from "./pages/NewImagePage";
-import PostListPage from "./pages/PostListPage";
-import ScrollingImagesPage from "./pages/ScrollingImagesPage";
+import GalleryPage from "./pages/gallery/GalleryPage";
+import NewImagePage from "./pages/gallery/NewImagePage";
+import PostListPage from "./pages/blog/PostListPage";
+import ScrollingImagesPage from "./pages/gallery/ScrollingImagesPage";
 import SignInPage from "./pages/SignInPage";
-import SingleImagePage from "./pages/SingleImagePage";
+import SingleImagePage from "./pages/gallery/SingleImagePage";
+import SinglePostPage from "./pages/blog/SinglePostPage";
 
 export const SignInRoute = () => (
   <Switch>
@@ -27,6 +28,7 @@ const Routes = () => {
       />
 
       <Route path="/blogg" element={<PostListPage />} />
+      <Route path="/blogg/:postId" element={<SinglePostPage />} />
     </Switch>
   );
 };

@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import ScrollingImages from "../components/images/ScrollingImages";
-import { IImage, IPreviewImage, IScrollingImage } from "../interfaces/image";
-import { IStoreState } from "../store/store";
+import ScrollingImages from "../../components/images/ScrollingImages";
+import { IImage, IPreviewImage, IScrollingImage } from "../../interfaces/image";
+import { IStoreState } from "../../store/store";
 import {
   getAllGalleryImages,
   getScrollingImages,
   replaceScrollingImages,
-} from "../utils/backendUtils";
+} from "../../utils/backendUtils";
 
 const ScrollingImagesPage = () => {
   // All images in gallery.

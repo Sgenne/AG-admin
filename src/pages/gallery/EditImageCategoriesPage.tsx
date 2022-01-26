@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import EditImageCategories from "../components/images/imageCategories/EditImageCategories";
-import { IImage, IImageCategory } from "../interfaces/image";
-import { IStoreState } from "../store/store";
+import EditImageCategories from "../../components/images/imageCategories/EditImageCategories";
+import { IImage, IImageCategory } from "../../interfaces/image";
+import { IStoreState } from "../../store/store";
 import {
   addImageCategory,
   deleteImageCategory,
   getAllGalleryImages,
   setImageCategoryPreviewImage,
-} from "../utils/backendUtils";
-import { errorStatusCode } from "../utils/utils";
+} from "../../utils/backendUtils";
+import { errorStatusCode } from "../../utils/utils";
 
 const EditImageCategoriesPage = () => {
   // The image categories at the time of loading the page.

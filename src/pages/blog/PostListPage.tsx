@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import PostList from "../components/blog/PostList";
-import { IBlogPost } from "../interfaces/blog";
-
-import { getBlogPosts } from "../utils/backendUtils";
-import { errorStatusCode } from "../utils/utils";
+import { useNavigate } from "react-router-dom";
+import PostList from "../../components/blog/PostList";
+import { IBlogPost } from "../../interfaces/blog";
+import { getBlogPosts } from "../../utils/backendUtils";
+import { errorStatusCode } from "../../utils/utils";
 
 /**
  * Renders all available blog posts together with options to edit posts
@@ -15,6 +15,8 @@ import { errorStatusCode } from "../utils/utils";
 const PostListPage = () => {
   const [posts, setPosts] = useState<IBlogPost[]>([]);
   const [error, setError] = useState<Error>();
+
+  const navigate = useNavigate();
 
   // Fetch blog posts from backend.
   useEffect(() => {
@@ -33,7 +35,11 @@ const PostListPage = () => {
 
   if (error) throw error;
 
-  return <PostList posts={posts} />;
+  const postClickedHandler = (post: IBlogPost) => {
+    navigate("/blogg/" + post._id);
+  };
+
+  return <PostList posts={posts} onPostClicked={postClickedHandler} />;
 };
 
 export default PostListPage;

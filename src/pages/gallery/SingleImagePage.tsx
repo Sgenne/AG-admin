@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-import { IImage } from "../interfaces/image";
-import SingleImage from "../components/images/SingleImage";
-import { getImageById, deleteImage } from "../utils/backendUtils";
+import { IImage } from "../../interfaces/image";
+import SingleImage from "../../components/images/SingleImage";
+import { getImageById, deleteImage } from "../../utils/backendUtils";
 import { useSelector } from "react-redux";
-import { IStoreState } from "../store/store";
+import { IStoreState } from "../../store/store";
 
 const SingleImagePage = () => {
   const [image, setImage] = useState<IImage>();
