@@ -31,13 +31,20 @@ const SinglePostPage = () => {
         return;
       }
 
-      setPost(result.post);
+      console.log("setting post: ", result.blogPost);
+
+      setPost(result.blogPost);
     };
     fetchPost();
   }, [postId]);
 
+  if (error) {
+    throw error;
+  }
+
   if (!post) return <></>;
-  if (error) throw error;
+
+  console.log("post: ", post);
 
   const deletePostHandler = () => {};
 

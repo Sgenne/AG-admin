@@ -1,3 +1,5 @@
+import parse from "html-react-parser";
+
 import { IBlogPost } from "../../interfaces/blog";
 import Button from "../UI/Button";
 
@@ -17,8 +19,8 @@ interface ISinglePostProps {
 const SinglePost = ({ post, onDeletePost }: ISinglePostProps) => {
   const editPostButtonHandler = () => {};
 
-  const domParser = new DOMParser();
-  const postContent = domParser.parseFromString(post.content, "text/html");
+  const postContent = parse(post.content);
+  console.log(post.content);
 
   return (
     <div className="single-blog-post">
