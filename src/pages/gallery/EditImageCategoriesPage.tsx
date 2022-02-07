@@ -25,12 +25,9 @@ const EditImageCategoriesPage = () => {
   const [newCategoryTitle, setNewCategoryTitle] = useState("");
   const [error, setError] = useState<Error>();
 
-  const { userId, accessToken } = useSelector(
-    (state: IStoreState) => state.auth
-  );
+  const { accessToken } = useSelector((state: IStoreState) => state.auth);
 
-  if (!(userId && accessToken))
-    throw new Error("Invalid user-id and access-token.");
+  if (!accessToken) throw new Error("Invalid access-token.");
 
   if (error) {
     throw error;
@@ -59,11 +56,7 @@ const EditImageCategoriesPage = () => {
     ) {
       return; // Show error message
     }
-    const result = await addImageCategory(
-      newCategoryTitle,
-      userId,
-      accessToken
-    );
+    const result = await addImageCategory(newCategoryTitle, accessToken);
 
     if (errorStatusCode(result.status)) {
       setError(new Error(result.message));
@@ -91,7 +84,6 @@ const EditImageCategoriesPage = () => {
     const result = await setImageCategoryPreviewImage(
       previewImageId,
       categoryId,
-      userId,
       accessToken
     );
 
@@ -117,7 +109,7 @@ const EditImageCategoriesPage = () => {
 
   const deleteCategoryHandler = async (categoryId: string) => {
     const result: { status: number; message: string } =
-      await deleteImageCategory(categoryId, userId, accessToken);
+      await deleteImageCategory(categoryId, accessToken);
 
     if (errorStatusCode(result.status)) {
       setError(new Error(result.message));

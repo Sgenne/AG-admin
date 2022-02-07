@@ -45,20 +45,14 @@ const NewImagePage = () => {
 
   // Handles uploading the chosen file.
   const submitHandler = async () => {
-    const userId = authState.userId;
     const accessToken = authState.accessToken;
 
     // If the user is not logged in or no category nor image has been chosen,
     // then upload should not be permited.
-    if (!(userId && accessToken)) return;
+    if (!accessToken) return;
     if (disableSubmit) return;
 
-    const result = await uploadImage(
-      chosenImage,
-      chosenCategory,
-      userId,
-      accessToken
-    );
+    const result = await uploadImage(chosenImage, chosenCategory, accessToken);
 
     // If the image could not be uploaded, then show an error.
     if (errorStatusCode(result.status)) {

@@ -1,0 +1,16 @@
+.single-blog-post {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 10px;
+}
+
+.single-blog-post__content-container img {
+  max-height: 700px;
+  max-width: 100%;
+}
+
+.single-blog-post__content-container .image {
+  display: flex;
+  justify-content: center;
+  margin: 2% 0;
+}

@@ -24,9 +24,7 @@ const ScrollingImagesPage = () => {
   const [message, setMessage] = useState("");
 
   // The user-id and access-token of the signed in user.
-  const { userId, accessToken } = useSelector(
-    (state: IStoreState) => state.auth
-  );
+  const { accessToken } = useSelector((state: IStoreState) => state.auth);
 
   useEffect(() => {
     // Fetches available images and current scrolling images from backend.
@@ -101,11 +99,7 @@ const ScrollingImagesPage = () => {
 
   // Sends the new list of scrolling images to the backend.
   const submitChangesHandler = async () => {
-    const result = await replaceScrollingImages(
-      scrollingImageIds,
-      userId,
-      accessToken
-    );
+    const result = await replaceScrollingImages(scrollingImageIds, accessToken);
 
     // Show success popup if the images were successfully replaced.
     if (result.status === 200) {

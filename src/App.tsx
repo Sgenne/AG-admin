@@ -9,6 +9,8 @@ import ErrorBoundary from "./ErrorBoundary";
 function App() {
   const isSignedIn = useSelector((state: IStoreState) => state.auth.isSignedIn);
 
+  console.log(isSignedIn);
+
   if (!isSignedIn) {
     return (
       <ErrorBoundary>

@@ -28,14 +28,13 @@ const SingleImagePage = () => {
 
   const deleteImageHandler = () => {
     const sendRequest = async () => {
-      const userId = authState.userId;
       const accessToken = authState.accessToken;
 
-      if (!(userId && accessToken)) return;
+      if (accessToken) return;
 
       if (!imageId) return;
 
-      const result = await deleteImage(imageId, userId, accessToken);
+      const result = await deleteImage(imageId, accessToken);
 
       // If the image was deleted successfully, then the user is
       // redirected to the gallery.

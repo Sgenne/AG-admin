@@ -2,6 +2,7 @@ import parse from "html-react-parser";
 
 import { IBlogPost } from "../../interfaces/blog";
 import Button from "../UI/Button";
+import "../../css/blog/SinglePost.css";
 
 interface ISinglePostProps {
   post: IBlogPost;
@@ -20,7 +21,6 @@ const SinglePost = ({ post, onDeletePost }: ISinglePostProps) => {
   const editPostButtonHandler = () => {};
 
   const postContent = parse(post.content);
-  console.log(post.content);
 
   return (
     <div className="single-blog-post">

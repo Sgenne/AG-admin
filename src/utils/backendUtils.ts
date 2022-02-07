@@ -93,7 +93,6 @@ export const getBlogPostById = async (id: string) => {
 export const uploadImage = async (
   image: File,
   category: string,
-  userId: string,
   accessToken: string
 ) => {
   const data = new FormData();
@@ -104,7 +103,6 @@ export const uploadImage = async (
     method: "POST",
     headers: {
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: data,
   };
@@ -113,7 +111,6 @@ export const uploadImage = async (
 
 export const deleteImage = async (
   imageId: string,
-  userId: string,
   accessToken: string
 ) => {
   const requestConfig = {
@@ -122,7 +119,6 @@ export const deleteImage = async (
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: JSON.stringify({ imageId: imageId }),
   };
@@ -132,7 +128,6 @@ export const deleteImage = async (
 
 export const replaceScrollingImages = (
   newScrollingImageIds: string[],
-  userId: string,
   accessToken: string
 ) => {
   const requestConfig = {
@@ -141,7 +136,6 @@ export const replaceScrollingImages = (
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: JSON.stringify({ newScrollingImageIds: newScrollingImageIds }),
   };
@@ -151,7 +145,6 @@ export const replaceScrollingImages = (
 
 export const addImageCategory = (
   categoryTitle: string,
-  userId: string,
   accessToken: string
 ) => {
   const requestConfig = {
@@ -160,7 +153,6 @@ export const addImageCategory = (
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: JSON.stringify({
       categoryTitle: categoryTitle,
@@ -172,7 +164,6 @@ export const addImageCategory = (
 
 export const deleteImageCategory = (
   categoryId: string,
-  userId: string,
   accessToken: string
 ) => {
   const requestConfig = {
@@ -181,7 +172,6 @@ export const deleteImageCategory = (
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: JSON.stringify({
       categoryId: categoryId,
@@ -194,7 +184,6 @@ export const deleteImageCategory = (
 export const setImageCategoryPreviewImage = (
   previewImageId: string,
   categoryId: string,
-  userId: string,
   accessToken: string
 ) => {
   const requestConfig = {
@@ -203,7 +192,6 @@ export const setImageCategoryPreviewImage = (
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: `Bearer: ${accessToken}`,
-      UserId: userId,
     },
     body: JSON.stringify({
       previewImageId: previewImageId,

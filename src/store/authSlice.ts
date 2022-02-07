@@ -21,6 +21,7 @@ export const signIn = createAsyncThunk(
         body: body,
       });
     } catch (err) {
+      console.log(err);
       return {
         isSignedIn: false,
       };
@@ -32,10 +33,9 @@ export const signIn = createAsyncThunk(
 
       return {
         isSignedIn: true,
-        accessToken: data.user.accessToken,
+        accessToken: data.accessToken,
         email: email,
         password: password,
-        userId: data.user.userId,
       };
     }
     // if sign in failed due to incorrect email or password
@@ -58,7 +58,6 @@ export interface IAuthState {
   accessToken: string;
   email: string;
   password: string;
-  userId: string;
   invalidEmailOrPassword: boolean;
 }
 
@@ -67,7 +66,6 @@ const _initialState = {
   accessToken: "",
   email: "",
   password: "",
-  userId: "",
   invalidEmailOrPassword: false,
 };
 
@@ -80,13 +78,14 @@ const authSlice = createSlice({
     builder.addCase(signIn.fulfilled, (state, action) => {
       const payload = action.payload;
 
+      console.log("payload: ", payload);
+
       return {
         ...state,
         isSignedIn: payload.isSignedIn,
         accessToken: payload.accessToken,
         email: payload.email || "",
         password: payload.password || "",
-        userId: payload.userId,
         invalidEmailOrPassword: payload.invalidEmailOrPassword || false,
       };
     });

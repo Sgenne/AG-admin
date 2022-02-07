@@ -30,9 +30,7 @@ const SinglePostPage = () => {
         setError(new Error(result.message));
         return;
       }
-
-      console.log("setting post: ", result.blogPost);
-
+      
       setPost(result.blogPost);
     };
     fetchPost();
