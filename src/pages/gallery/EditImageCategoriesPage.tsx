@@ -41,7 +41,7 @@ const EditImageCategoriesPage = () => {
         const error = new Error(result.message);
         throw error;
       }
-      
+
       setCurrentCategories(result.categories);
       setImages(result.images);
     };
@@ -91,12 +91,7 @@ const EditImageCategoriesPage = () => {
       setError(new Error(result.message));
     }
 
-    // EditImageCategories component doesn't expect previewImage to be
-    // populated. Only to contain the id of the previewImage.
-    const updatedCategory = {
-      ...result.category,
-      previewImage: result.category.previewImage._id,
-    };
+    const updatedCategory = result.category;
 
     // Replace the category object of the affected category with a new object containing the
     // new preview image.
