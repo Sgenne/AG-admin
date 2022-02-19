@@ -22,5 +22,5 @@ export interface IScrollingImage {
 export interface IImageCategory {
   _id: string;
   title: string;
-  previewImage: string;
+  previewImage: IImage;
 }

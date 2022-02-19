@@ -30,7 +30,7 @@ const SingleImagePage = () => {
     const sendRequest = async () => {
       const accessToken = authState.accessToken;
 
-      if (accessToken) return;
+      if (!accessToken) return;
 
       if (!imageId) return;
 

@@ -24,9 +24,7 @@ const EditImageCategories = (props: IEditImageCategoriesProps) => {
     <li className="edit-image-categories__category-item" key={category._id}>
       <ImageCategoryItem
         category={category}
-        currentPreviewImage={props.images.find(
-          (image) => image._id === category.previewImage
-        )}
+        currentPreviewImage={category.previewImage}
         images={props.images.filter(
           (image) =>
             image.category.toLowerCase() === category.title.toLowerCase()

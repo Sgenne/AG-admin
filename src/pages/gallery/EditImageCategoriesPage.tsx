@@ -41,7 +41,7 @@ const EditImageCategoriesPage = () => {
         const error = new Error(result.message);
         throw error;
       }
-
+      
       setCurrentCategories(result.categories);
       setImages(result.images);
     };
