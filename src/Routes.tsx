@@ -8,6 +8,7 @@ import ScrollingImagesPage from "./pages/gallery/ScrollingImagesPage";
 import SignInPage from "./pages/SignInPage";
 import SingleImagePage from "./pages/gallery/SingleImagePage";
 import SinglePostPage from "./pages/blog/SinglePostPage";
+import NewPostPage from "./pages/blog/NewPostPage";
 
 export const SignInRoute = () => (
   <Switch>
@@ -29,6 +30,7 @@ const Routes = () => {
 
       <Route path="/blogg" element={<PostListPage />} />
       <Route path="/blogg/:postId" element={<SinglePostPage />} />
+      <Route path="/blogg/nytt-inlagg" element={<NewPostPage />} />
     </Switch>
   );
 };
