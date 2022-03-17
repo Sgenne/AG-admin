@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import SingleImage from "../UI/SingleImage";
 import { getImageById, deleteImage } from "../../utils/backendUtils";
 import { useSelector } from "react-redux";
-import { IStoreState } from "../../store/store";
+import { StoreState } from "../../store/store";
 import Image from "../../interfaces/Image.interface";
 
 const SingleImagePage = () => {
   const [image, setImage] = useState<Image>();
   const [hasError, setHasError] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
-  const authState = useSelector((state: IStoreState) => state.auth);
+  const authState = useSelector((state: StoreState) => state.auth);
   const { imageId } = useParams();
   const navigate = useNavigate();
 

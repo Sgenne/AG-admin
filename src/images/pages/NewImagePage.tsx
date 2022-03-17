@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import NewImage from "../UI/NewImage";
 import { getGalleryCategories, uploadImage } from "../../utils/backendUtils";
 import ImageCategory from "../../interfaces/ImageCategory.interface";
-import { IStoreState } from "../../store/store";
+import { StoreState } from "../../store/store";
 import { useNavigate } from "react-router-dom";
 import { errorStatusCode } from "../../utils/utils";
 
@@ -15,7 +15,7 @@ const NewImagePage = () => {
   const [hasError, setHasError] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
-  const authState = useSelector((state: IStoreState) => state.auth);
+  const authState = useSelector((state: StoreState) => state.auth);
   const navigate = useNavigate();
 
   // Fetch available gallery categories once the component is loaded.

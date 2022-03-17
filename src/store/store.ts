@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer, { IAuthState } from "./authSlice";
 
-export interface IStoreState {
+export interface StoreState {
   auth: IAuthState;
 }
 

@@ -13,7 +13,7 @@ const ADD_IMAGE_CATEGORY_URL = `${HOST}/admin/gallery/new-category`;
 const DELETE_IMAGE_CATEGORY_URL = `${HOST}/admin/gallery/delete-category`;
 const SET_IMAGE_CATEGORY_PREVIEW_IMAGE_URL = `${HOST}/admin/gallery/set-category-preview-image`;
 
-const _sendRequest = async (url: string, requestConfig?: {}) => {
+const sendRequest = async (url: string, requestConfig?: {}) => {
   let result;
   let response;
 
@@ -36,23 +36,23 @@ const _sendRequest = async (url: string, requestConfig?: {}) => {
 */
 
 export const getScrollingImages = async () => {
-  return _sendRequest(GET_SCROLLING_IMAGES_URL);
+  return sendRequest(GET_SCROLLING_IMAGES_URL);
 };
 
 export const getAllGalleryImages = async () => {
-  return _sendRequest(GET_ALL_GALLERY_IMAGES_URL);
+  return sendRequest(GET_ALL_GALLERY_IMAGES_URL);
 };
 
 export const getGalleryCategories = () => {
-  return _sendRequest(GET_GALLERY_CATEGORIES_URL);
+  return sendRequest(GET_GALLERY_CATEGORIES_URL);
 };
 
 export const getImagesByCategory = async (category: string) => {
-  return _sendRequest(GET_IMAGES_BY_CATEGORY_URL + category);
+  return sendRequest(GET_IMAGES_BY_CATEGORY_URL + category);
 };
 
 export const getImageById = async (imageId: string) => {
-  return _sendRequest(GET_IMAGE_BY_ID_URL + imageId);
+  return sendRequest(GET_IMAGE_BY_ID_URL + imageId);
 };
 
 export const getBlogPosts = async (requestQueries?: {
@@ -73,15 +73,15 @@ export const getBlogPosts = async (requestQueries?: {
     url = url + queriesString;
   }
 
-  return _sendRequest(url);
+  return sendRequest(url);
 };
 
 export const getBlogPostsByMonth = async (year: number, month: number) => {
-  return _sendRequest(`${GET_BLOG_POSTS_URL}/${year}/${month}`);
+  return sendRequest(`${GET_BLOG_POSTS_URL}/${year}/${month}`);
 };
 
 export const getBlogPostById = async (id: string) => {
-  return _sendRequest(GET_BLOG_POST_BY_ID_URL + id);
+  return sendRequest(GET_BLOG_POST_BY_ID_URL + id);
 };
 
 /*
@@ -106,7 +106,7 @@ export const uploadImage = async (
     },
     body: data,
   };
-  return _sendRequest(UPLOAD_IMAGE_URL, requestConfig);
+  return sendRequest(UPLOAD_IMAGE_URL, requestConfig);
 };
 
 export const deleteImage = async (
@@ -123,7 +123,7 @@ export const deleteImage = async (
     body: JSON.stringify({ imageId: imageId }),
   };
 
-  return _sendRequest(DELETE_IMAGE_URL, requestConfig);
+  return sendRequest(DELETE_IMAGE_URL, requestConfig);
 };
 
 export const replaceScrollingImages = (
@@ -140,7 +140,7 @@ export const replaceScrollingImages = (
     body: JSON.stringify({ newScrollingImageIds: newScrollingImageIds }),
   };
 
-  return _sendRequest(REPLACE_SCROLLING_IMAGES_URL, requestConfig);
+  return sendRequest(REPLACE_SCROLLING_IMAGES_URL, requestConfig);
 };
 
 export const addImageCategory = (
@@ -159,7 +159,7 @@ export const addImageCategory = (
     }),
   };
 
-  return _sendRequest(ADD_IMAGE_CATEGORY_URL, requestConfig);
+  return sendRequest(ADD_IMAGE_CATEGORY_URL, requestConfig);
 };
 
 export const deleteImageCategory = (
@@ -178,7 +178,7 @@ export const deleteImageCategory = (
     }),
   };
 
-  return _sendRequest(DELETE_IMAGE_CATEGORY_URL, requestConfig);
+  return sendRequest(DELETE_IMAGE_CATEGORY_URL, requestConfig);
 };
 
 export const setImageCategoryPreviewImage = (
@@ -199,5 +199,5 @@ export const setImageCategoryPreviewImage = (
     }),
   };
 
-  return _sendRequest(SET_IMAGE_CATEGORY_PREVIEW_IMAGE_URL, requestConfig);
+  return sendRequest(SET_IMAGE_CATEGORY_PREVIEW_IMAGE_URL, requestConfig);
 };

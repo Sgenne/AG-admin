@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import EditImageCategories from "../UI/imageCategories/EditImageCategories";
-import { IStoreState } from "../../store/store";
+import { StoreState } from "../../store/store";
 import {
   addImageCategory,
   deleteImageCategory,
@@ -26,7 +26,7 @@ const EditImageCategoriesPage = () => {
   const [newCategoryTitle, setNewCategoryTitle] = useState("");
   const [error, setError] = useState<Error>();
 
-  const { accessToken } = useSelector((state: IStoreState) => state.auth);
+  const { accessToken } = useSelector((state: StoreState) => state.auth);
 
   if (!accessToken) throw new Error("Invalid access-token.");
 

@@ -2,12 +2,12 @@ import "./App.css";
 import "../utils/util.css";
 import SideMenu from "../side-menu/UI/SideMenu";
 import Routes, { SignInRoute } from "./Routes";
-import { IStoreState } from "../store/store";
+import { StoreState } from "../store/store";
 import { useSelector } from "react-redux";
 import ErrorBoundary from "../errors/ErrorBoundary";
 
 function App() {
-  const isSignedIn = useSelector((state: IStoreState) => state.auth.isSignedIn);
+  const isSignedIn = useSelector((state: StoreState) => state.auth.isSignedIn);
 
   console.log(isSignedIn);
 

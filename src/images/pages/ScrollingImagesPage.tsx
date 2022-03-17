@@ -5,7 +5,7 @@ import ScrollingImages from "../UI/ScrollingImages";
 import Image from "../../interfaces/Image.interface";
 import PreviewImage from "../../interfaces/PreviewImage.interface";
 import ScrollingImage from "../../interfaces/ScrollingImage.interface";
-import { IStoreState } from "../../store/store";
+import { StoreState } from "../../store/store";
 import {
   getAllGalleryImages,
   getScrollingImages,
@@ -26,7 +26,7 @@ const ScrollingImagesPage = () => {
   const [message, setMessage] = useState("");
 
   // The user-id and access-token of the signed in user.
-  const { accessToken } = useSelector((state: IStoreState) => state.auth);
+  const { accessToken } = useSelector((state: StoreState) => state.auth);
 
   useEffect(() => {
     // Fetches available images and current scrolling images from backend.
